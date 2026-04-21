@@ -30,7 +30,7 @@ export default function Footer() {
         {/* 3-column grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           {/* Left — logo + tagline */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 items-start">
             <Image
               src={theme.logo.src}
               alt={theme.logo.alt}
