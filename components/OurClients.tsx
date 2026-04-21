@@ -7,11 +7,11 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import SectionTitle from "@/components/ui/SectionTitle";
 
 const clients = [
-  { name: "Client 6",  src: "/logos/Frame 6.png" },
-  { name: "Client 7",  src: "/logos/Frame 7.png" },
-  { name: "Client 8",  src: "/logos/Frame 8.png" },
-  { name: "Client 9",  src: "/logos/Frame 9.png" },
-  { name: "Client 10", src: "/logos/Frame 10.png" },
+  { name: "China Telecom", src: "/logos/Frame 6.png" },
+  { name: "Wanda",         src: "/logos/wanda.png" },
+  { name: "Lynk & Co",    src: "/logos/Frame 8.png" },
+  { name: "Tencent",      src: "/logos/Frame 9.png" },
+  { name: "CPIC",         src: "/logos/CPIC.png" },
 ];
 
 const fadeUp = {
@@ -33,7 +33,8 @@ function ClientCell({ client, index }: { client: typeof clients[0]; index: numbe
       variants={fadeUp}
       className="flex items-center justify-center cursor-default"
       style={{
-        padding: "12px 16px",
+        padding: "28px 20px",
+        minHeight: "120px",
         backgroundColor: hovered ? "var(--color-bg-elevated)" : "var(--color-bg-card)",
         borderRight: !isLast ? "1px solid var(--color-border)" : "none",
         transition: "background-color 0.2s ease",
@@ -41,7 +42,7 @@ function ClientCell({ client, index }: { client: typeof clients[0]; index: numbe
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div style={{ position: "relative", width: "100%", height: "44px" }}>
+      <div style={{ position: "relative", width: "100%", height: "56px" }}>
         <Image
           src={client.src}
           alt={client.name}
@@ -94,7 +95,7 @@ export default function OurClients() {
           className="grid grid-cols-5"
           style={{
             border: "1px solid var(--color-border)",
-            borderRadius: "1rem",
+            borderRadius: "0.5rem",
             overflow: "hidden",
           }}
         >
