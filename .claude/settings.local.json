@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=no --import-alias=\"@/*\" --no-turbopack --yes)",
+      "Bash(brew list *)",
+      "Bash(/opt/homebrew/bin/npm install *)",
+      "Bash(/usr/local/bin/npm install *)",
+      "Bash(npm install *)",
+      "Bash(brew --version)",
+      "Bash(/opt/homebrew/bin/brew install *)",
+      "Bash(/opt/homebrew/bin/node --version)",
+      "Bash(/opt/homebrew/bin/npm --version)",
+      "Bash(/opt/homebrew/bin/npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "WebFetch(domain:zhituishidai.com)",
+      "Bash(curl -sL \"https://zhituishidai.com/assets/minimax.png\" -o \"/Users/v/Camus Website/public/icons/minimax.png\")",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); const names = Object.keys\\(l\\); console.log\\(names.filter\\(n => /mouse|search|scan/i.test\\(n\\)\\).join\\('\\\\n'\\)\\)\")",
+      "WebFetch(domain:resolv.xyz)",
+      "WebFetch(domain:reactbits.dev)"
+    ]
+  }
+}

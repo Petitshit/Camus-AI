@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Season Serif ── */
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Season Serif";
+  src: url("/fonts/SeasonSerifTRIAL-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Geist ── */
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Geist Mono ── */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── CSS custom properties from theme ── */
+:root {
+  --color-bg: #F0F1F2;
+  --color-bg-elevated: #E8E9EA;
+  --color-bg-card: #FFFFFF;
+  --color-surface: #E2E3E4;
+  --color-border: #D4D5D6;
+  --color-border-light: #DCDDE0;
+  --color-text: #26110F;
+  --color-text-dim: #734432;
+  --color-text-muted: #9A8A80;
+  --color-accent: #99BFF2;
+  --color-accent-hover: #7AAAE8;
+  --color-accent-glow: rgba(153, 191, 242, 0.12);
+  --color-green: #80BF84;
+  --color-green-glow: rgba(128, 191, 132, 0.10);
+  --color-brown: #734432;
+  --color-dark: #26110F;
+  --font-serif: "Season Serif", Georgia, serif;
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+}
+
+/* ── Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Utility helpers ── */
+.font-serif { font-family: var(--font-serif); }
+.font-sans  { font-family: var(--font-sans); }
+.font-mono  { font-family: var(--font-mono); }
+
+/* ── Animations ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
