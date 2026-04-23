@@ -16,7 +16,11 @@
       "Bash(curl -sL \"https://zhituishidai.com/assets/minimax.png\" -o \"/Users/v/Camus Website/public/icons/minimax.png\")",
       "Bash(node -e \"const l = require\\('lucide-react'\\); const names = Object.keys\\(l\\); console.log\\(names.filter\\(n => /mouse|search|scan/i.test\\(n\\)\\).join\\('\\\\n'\\)\\)\")",
       "WebFetch(domain:resolv.xyz)",
-      "WebFetch(domain:reactbits.dev)"
+      "WebFetch(domain:reactbits.dev)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(python3)",
+      "Bash(convert --version)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

@@ -13,6 +13,7 @@ import OurClients from "@/components/OurClients";
 import FinalCta from "@/components/FinalCta";
 import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
+import DeployButton from "@/components/DeployButton";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,6 +33,7 @@ export default function Home() {
       <FinalCta onOpenModal={openModal} />
       <Footer />
       <DiagnosisModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <DeployButton />
     </main>
   );
 }

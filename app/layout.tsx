@@ -5,6 +5,11 @@ import { theme } from "@/config/theme";
 export const metadata: Metadata = {
   title: "Camus — Generative Engine Optimization",
   description: "The magic serum for AI-age brand presence. We engineer consensus across every AI platform that matters.",
+  icons: {
+    icon: "/favicon-rounded.svg",
+    shortcut: "/favicon-rounded.svg",
+    apple: "/favicon-rounded.svg",
+  },
 };
 
 export default function RootLayout({
