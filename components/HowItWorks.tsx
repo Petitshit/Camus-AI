@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { ScanSearch, Cpu, Map, FileCode2, Activity } from "lucide-react";
+import { ScanSearch, AlignLeft, Layers, Send, Activity } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionTitle from "@/components/ui/SectionTitle";
 
@@ -10,32 +10,37 @@ const steps = [
   {
     icon: ScanSearch,
     num: "01",
-    title: "Brand Perception Audit",
-    body: "We interrogate every major AI platform — ChatGPT, Gemini, DeepSeek, Doubao, Kimi, Qwen, and more — mapping exactly how each one describes, recommends, or ignores your brand. Most brands are shocked by what they find.",
+    title: "Audit",
+    body: "Map exactly how AI currently describes, rates, and recommends your brand across all major platforms.",
+    engine: "trust",
   },
   {
-    icon: Cpu,
+    icon: AlignLeft,
     num: "02",
-    title: "Model Preference Decoding",
-    body: "Every model has biases. We reverse-engineer what each one values — content formats, source authority, citation preferences, semantic structures. What makes Gemini trust you is not what makes DeepSeek trust you.",
+    title: "Align",
+    body: "Define your core AI trust narrative — the facts, framing, and signals AI should consistently recognise.",
+    engine: "trust",
   },
   {
-    icon: Map,
+    icon: Layers,
     num: "03",
-    title: "Custom GEO Strategy",
-    body: "A unified cross-platform, cross-market optimization roadmap — tailored to your brand, competitive landscape, and the specific models that matter most for your audience in each geography.",
+    title: "Structure",
+    body: "Build structured AI trust assets: optimised content, citations, entity definitions, and authority signals.",
+    engine: "trust",
   },
   {
-    icon: FileCode2,
+    icon: Send,
     num: "04",
-    title: "Knowledge Engineering",
-    body: "We create and distribute structured brand knowledge — high-authority, model-friendly content built to be cited and trusted. For Chinese platforms, built natively. For global platforms, built to compound.",
+    title: "Distribute",
+    body: "Deploy trust assets across global and Chinese AI ecosystems through targeted platform strategies.",
+    engine: "conversion",
   },
   {
     icon: Activity,
     num: "05",
-    title: "Continuous Monitoring & Iteration",
-    body: "Real-time tracking across all 20+ platforms. We watch how models talk about you after every training update and competitive shift — and adapt before the gap opens.",
+    title: "Track",
+    body: "Monitor AI mention rate, recommendation quality, and downstream conversion signals continuously.",
+    engine: "conversion",
   },
 ];
 
@@ -65,16 +70,28 @@ function TypewriterTitle({ text, isHovered }: { text: string; isHovered: boolean
     } else {
       setDisplayed(text);
     }
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, [isHovered, text]);
 
-  return <>{displayed}{isHovered && displayed.length < text.length && <span style={{ opacity: 0.5 }}>|</span>}</>;
+  return (
+    <>
+      {displayed}
+      {isHovered && displayed.length < text.length && (
+        <span style={{ opacity: 0.5 }}>|</span>
+      )}
+    </>
+  );
 }
 
 export default function HowItWorks() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+
+  const trustSteps = steps.filter((s) => s.engine === "trust");
+  const conversionSteps = steps.filter((s) => s.engine === "conversion");
 
   return (
     <section
@@ -90,21 +107,99 @@ export default function HowItWorks() {
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="mb-16"
+          className="mb-12"
         >
           <SectionLabel className="mb-4">Process</SectionLabel>
           <SectionTitle
             className="mb-5"
             style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)", maxWidth: "22ch" }}
           >
-            Five steps to becoming the answer — everywhere.
+            From Invisible to Indispensable. In Five Steps.
           </SectionTitle>
           <p
             className="text-base md:text-lg leading-relaxed"
-            style={{ color: "rgba(38,17,15,0.65)", maxWidth: "58ch", fontFamily: "var(--font-sans)" }}
+            style={{
+              color: "rgba(38,17,15,0.65)",
+              maxWidth: "58ch",
+              fontFamily: "var(--font-sans)",
+            }}
           >
-            No black boxes. A transparent, rigorous process from first audit to full-spectrum AI dominance — Western and Chinese platforms simultaneously.
+            A transparent, consulting-led process that turns brand information into AI trust assets
+            — then converts that trust into measurable business outcomes.
           </p>
+        </motion.div>
+
+        {/* Progress bar */}
+        <motion.div
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="flex mb-10 rounded-full overflow-hidden"
+          style={{
+            border: "1px solid var(--color-border)",
+            backgroundColor: "var(--color-bg-card)",
+          }}
+        >
+          <div
+            className="flex items-center gap-2 px-5 py-2.5 flex-1"
+            style={{
+              backgroundColor: "var(--color-accent-glow)",
+              borderRight: "1px solid var(--color-border)",
+            }}
+          >
+            <span
+              className="text-xs font-medium tracking-wide"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+            >
+              Trust Engine
+            </span>
+            <div className="flex gap-1 ml-auto">
+              {trustSteps.map((s) => (
+                <span
+                  key={s.num}
+                  className="text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                  style={{
+                    backgroundColor: "var(--color-accent)",
+                    color: "var(--color-dark)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {s.num.replace("0", "")}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div
+            className="flex items-center gap-2 px-5 py-2.5 flex-1"
+            style={{ backgroundColor: "var(--color-green-glow)" }}
+          >
+            <span
+              className="text-xs font-medium tracking-wide"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--color-green)" }}
+            >
+              Conversion Engine
+            </span>
+            <div className="flex gap-1 ml-auto">
+              {conversionSteps.map((s) => (
+                <span
+                  key={s.num}
+                  className="text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                  style={{
+                    backgroundColor: "var(--color-green)",
+                    color: "#fff",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {s.num.replace("0", "")}
+                </span>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         {/* Steps */}
@@ -112,16 +207,19 @@ export default function HowItWorks() {
           {steps.map((step, i) => {
             const Icon = step.icon;
             const isHovered = hoveredIdx === i;
+            const accentColor =
+              step.engine === "trust" ? "var(--color-green)" : "var(--color-green)";
+
             return (
               <motion.div
                 key={step.num}
-                custom={i + 1}
+                custom={i + 2}
                 variants={fadeUp}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
                 className="group flex gap-6 md:gap-10 py-8 border-t transition-all duration-300 cursor-default"
                 style={{
-                  borderColor: isHovered ? "var(--color-green)" : "var(--color-border)",
+                  borderColor: isHovered ? accentColor : "var(--color-border)",
                   transition: "border-color 0.25s ease",
                 }}
                 onMouseEnter={() => setHoveredIdx(i)}
@@ -130,11 +228,11 @@ export default function HowItWorks() {
                 {/* Left: number + icon */}
                 <div className="flex-shrink-0 flex flex-col items-center gap-2 w-14">
                   <span
-                    className="font-serif font-light leading-none transition-colors duration-300"
+                    className="font-serif font-light leading-none"
                     style={{
                       fontFamily: "var(--font-serif)",
                       fontSize: "1.6rem",
-                      color: "var(--color-green)",
+                      color: accentColor,
                     }}
                   >
                     {step.num}
@@ -146,19 +244,22 @@ export default function HowItWorks() {
                       opacity: isHovered ? 1 : 0,
                     }}
                   >
-                    <Icon size={15} style={{ color: "var(--color-green)" }} strokeWidth={1.8} />
+                    <Icon
+                      size={15}
+                      style={{ color: accentColor }}
+                      strokeWidth={1.8}
+                    />
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col gap-2.5 flex-1">
                   <h3
-                    className="transition-transform duration-300 ease-out"
                     style={{
                       fontFamily: "var(--font-sans)",
                       fontWeight: 700,
                       fontSize: "1.1rem",
-                      color: isHovered ? "var(--color-green)" : "var(--color-text)",
+                      color: isHovered ? accentColor : "var(--color-text)",
                       transform: isHovered ? "translateX(4px)" : "translateX(0)",
                       transition: "color 0.25s ease, transform 0.3s ease",
                     }}
@@ -179,13 +280,13 @@ export default function HowItWorks() {
                   </p>
                 </div>
 
-                {/* Right: step tag */}
+                {/* Right: step label */}
                 <div className="hidden md:flex flex-shrink-0 items-start pt-1">
                   <span
                     className="text-xs tracking-widest transition-opacity duration-300"
                     style={{
                       fontFamily: "var(--font-mono)",
-                      color: "var(--color-green)",
+                      color: accentColor,
                       opacity: isHovered ? 1 : 0,
                     }}
                   >
