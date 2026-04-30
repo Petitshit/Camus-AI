@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Eye, ShieldCheck, TrendingUp } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
 
@@ -16,16 +17,23 @@ const fadeUp = {
 
 const tags = [
   {
+    icon: Eye,
     label: "AI Answer Presence",
     tooltip: "Be included in the answers your customers already trust.",
+    hoverAnim: { scaleY: [1, 0.1, 1, 1] },
   },
   {
+    icon: ShieldCheck,
     label: "AI Trust Signals",
     tooltip: "Shape how AI describes your brand, service, or expertise.",
+    hoverAnim: { scale: [1, 1.18, 1] },
   },
   {
+    icon: TrendingUp,
     label: "AI-Influenced Conversion",
-    tooltip: "Turn AI visibility into higher-quality inquiries, consideration, and business action.",
+    tooltip:
+      "Turn AI visibility into higher-quality inquiries, consideration, and business action.",
+    hoverAnim: { y: [0, -4, 0] },
   },
 ];
 
@@ -62,6 +70,33 @@ export default function Hero({ onOpenModal }: HeroProps) {
           filter: "blur(40px)",
         }}
       />
+
+      {/* Dithered flicker video — right side, mirrored */}
+      <div
+        className="absolute pointer-events-none hidden md:flex items-center justify-end"
+        style={{
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: "45vw",
+          maxWidth: 640,
+        }}
+      >
+        <video
+          src="/dithered-flicker.webm"
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "auto",
+            maxHeight: "100%",
+            objectFit: "contain",
+            transform: "scaleX(-1)",
+          }}
+        />
+      </div>
 
       {/* Dot grid */}
       <div
@@ -128,71 +163,129 @@ export default function Hero({ onOpenModal }: HeroProps) {
           From AI visibility to real business action.
         </motion.p>
 
-        {/* 3 interactive tags */}
+        {/* 3 pill buttons — closely packed pill group, expand upward on hover */}
         <motion.div
           custom={4}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="flex flex-wrap gap-3 mb-10"
+          className="mb-10 max-w-3xl flex flex-col gap-2 sm:gap-0 sm:flex-row"
         >
-          {tags.map((tag, i) => (
-            <div key={tag.label} className="relative">
-              <button
-                className="flex items-center gap-2 rounded-full px-4 py-2 text-sm transition-all duration-200"
+          {tags.map((tag, i) => {
+            const Icon = tag.icon;
+            const isHovered = hoveredTag === i;
+            const isFirst = i === 0;
+            const isLast = i === tags.length - 1;
+
+            const radiusClass = `rounded-lg sm:rounded-none ${
+              isFirst ? "sm:rounded-l-lg" : "sm:border-l-0"
+            } ${isLast ? "sm:rounded-r-lg" : ""}`;
+
+            return (
+              <div
+                key={tag.label}
+                className={`relative flex-1 cursor-default transition-colors duration-200 border ${radiusClass}`}
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  border: "1px solid var(--color-border)",
-                  backgroundColor: hoveredTag === i ? "var(--color-accent-glow)" : "var(--color-bg-card)",
-                  color: hoveredTag === i ? "var(--color-accent)" : "var(--color-text)",
-                  borderColor: hoveredTag === i ? "var(--color-accent)" : "var(--color-border)",
-                  cursor: "default",
+                  borderColor: isHovered
+                    ? "rgba(153,191,242,0.35)"
+                    : "rgba(115,68,50,0.18)",
+                  backgroundColor: isHovered
+                    ? "rgba(153,191,242,0.18)"
+                    : "rgba(115,68,50,0.05)",
                 }}
                 onMouseEnter={() => setHoveredTag(i)}
                 onMouseLeave={() => setHoveredTag(null)}
               >
-                {tag.label}
-                <span
-                  style={{
-                    width: 16, height: 16, borderRadius: "50%",
-                    backgroundColor: hoveredTag === i ? "var(--color-accent)" : "var(--color-border)",
-                    color: hoveredTag === i ? "var(--color-dark)" : "var(--color-text-muted)",
-                    fontSize: 10, fontWeight: 700,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    transition: "all 0.2s",
-                    flexShrink: 0,
-                  }}
-                >
-                  ?
-                </span>
-              </button>
+                {/* Tooltip — expands upward */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute left-0 right-0 z-50 rounded-xl p-4"
+                      style={{
+                        bottom: "calc(100% + 10px)",
+                        backgroundColor: "var(--color-dark)",
+                        border: "1px solid var(--color-accent)",
+                        boxShadow: "0 12px 40px rgba(38,17,15,0.25)",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <Icon
+                          size={14}
+                          style={{ color: "var(--color-accent)", flexShrink: 0 }}
+                          strokeWidth={2}
+                        />
+                        <span
+                          className="text-xs font-semibold"
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            color: "rgba(255,255,255,0.95)",
+                          }}
+                        >
+                          {tag.label}
+                        </span>
+                      </div>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{
+                          color: "rgba(255,255,255,0.7)",
+                          fontFamily: "var(--font-sans)",
+                        }}
+                      >
+                        {tag.tooltip}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-              <AnimatePresence>
-                {hoveredTag === i && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.18 }}
-                    className="absolute left-0 z-50 rounded-xl px-4 py-3 text-sm"
+                {/* Button face */}
+                <div className="flex items-center gap-2.5 px-4 py-4 select-none">
+                  <motion.span
+                    className="flex-shrink-0 flex items-center justify-center"
+                    animate={isHovered ? tag.hoverAnim : {}}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                  >
+                    <Icon
+                      size={22}
+                      strokeWidth={1.6}
+                      style={{
+                        color: isHovered ? "var(--color-accent-hover)" : "var(--color-brown)",
+                        transition: "color 0.2s",
+                      }}
+                    />
+                  </motion.span>
+                  <span
+                    className="font-semibold transition-colors duration-200"
                     style={{
-                      top: "calc(100% + 8px)",
-                      backgroundColor: "var(--color-dark)",
-                      color: "rgba(255,255,255,0.88)",
                       fontFamily: "var(--font-sans)",
-                      maxWidth: "28ch",
-                      lineHeight: 1.5,
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
-                      pointerEvents: "none",
-                      whiteSpace: "normal",
+                      fontSize: "0.8125rem",
+                      whiteSpace: "nowrap",
+                      color: isHovered ? "var(--color-accent-hover)" : "var(--color-brown)",
                     }}
                   >
-                    {tag.tooltip}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
+                    {tag.label}
+                  </span>
+                  <span
+                    className="ml-auto transition-colors duration-200"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.95rem",
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      color: isHovered ? "var(--color-accent-hover)" : "rgba(115,68,50,0.5)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    ?
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </motion.div>
 
         {/* CTAs */}

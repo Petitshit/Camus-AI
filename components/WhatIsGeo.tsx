@@ -6,7 +6,18 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 
-const differentiators = [
+type Differentiator = {
+  num: string;
+  title: string;
+  body: string;
+  tags: string[];
+  platforms?: {
+    global: string[];
+    chinese: string[];
+  };
+};
+
+const differentiators: Differentiator[] = [
   {
     num: "01",
     title: "Consulting-Led, Not Template-Based",
@@ -22,8 +33,12 @@ const differentiators = [
   {
     num: "03",
     title: "Cross-Market AI Expertise",
-    body: "We operate inside both global and Chinese AI ecosystems — from ChatGPT and Gemini to Doubao, DeepSeek, and Kimi — natively, not through translation.",
-    tags: ["Global AI + Chinese LLMs", "Mainland China + ASEAN"],
+    body: "We operate natively inside both global and Chinese AI ecosystems — not through translation or proxies, but from deep inside each platform.",
+    tags: ["Global AI + Chinese LLMs", "Mainland China + ASEAN", "Bilingual AI visibility"],
+    platforms: {
+      global: ["ChatGPT", "Gemini", "Claude", "Grok", "Perplexity"],
+      chinese: ["DeepSeek", "Doubao", "Kimi", "Qwen", "Wenxin Yiyan", "Tencent Yuanbao"],
+    },
   },
 ];
 
@@ -35,6 +50,55 @@ const fadeUp = {
     transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+function SolidTag({ label, variant = "accent" }: { label: string; variant?: "accent" | "green" | "dark" }) {
+  const styles: Record<string, React.CSSProperties> = {
+    accent: {
+      backgroundColor: "var(--color-accent)",
+      color: "var(--color-dark)",
+    },
+    green: {
+      backgroundColor: "var(--color-green)",
+      color: "#fff",
+    },
+    dark: {
+      backgroundColor: "rgba(38,17,15,0.12)",
+      color: "var(--color-text)",
+      border: "1px solid var(--color-border)",
+    },
+  };
+
+  return (
+    <span
+      className="text-xs px-3 py-1 rounded-full font-medium"
+      style={{
+        fontFamily: "var(--font-sans)",
+        ...styles[variant],
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
+function PlatformPill({ label, type }: { label: string; type: "global" | "chinese" }) {
+  return (
+    <span
+      className="text-xs px-2.5 py-1 rounded-full"
+      style={{
+        fontFamily: "var(--font-sans)",
+        backgroundColor:
+          type === "global"
+            ? "rgba(153,191,242,0.15)"
+            : "rgba(128,191,132,0.15)",
+        color: type === "global" ? "var(--color-accent)" : "var(--color-green)",
+        border: `1px solid ${type === "global" ? "rgba(153,191,242,0.3)" : "rgba(128,191,132,0.3)"}`,
+      }}
+    >
+      {label}
+    </span>
+  );
+}
 
 export default function WhatIsGeo() {
   const ref = useRef(null);
@@ -85,7 +149,7 @@ export default function WhatIsGeo() {
               variants={fadeUp}
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
-              className="rounded-2xl p-7 flex flex-col gap-5 cursor-default"
+              className="rounded-lg p-7 flex flex-col gap-5 cursor-default"
               style={{
                 backgroundColor: "var(--color-bg-card)",
                 border: "1px solid var(--color-border-light)",
@@ -98,6 +162,7 @@ export default function WhatIsGeo() {
               >
                 {d.num}
               </span>
+
               <div className="flex flex-col gap-3">
                 <h3
                   className="leading-snug"
@@ -117,21 +182,51 @@ export default function WhatIsGeo() {
                   {d.body}
                 </p>
               </div>
-              {/* Tags */}
+
+              {/* Platform grid for card 03 */}
+              {d.platforms && (
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <p
+                      className="text-xs tracking-widest uppercase mb-2"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--color-accent)",
+                        fontSize: "0.65rem",
+                      }}
+                    >
+                      Global
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {d.platforms.global.map((p) => (
+                        <PlatformPill key={p} label={p} type="global" />
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p
+                      className="text-xs tracking-widest uppercase mb-2"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--color-green)",
+                        fontSize: "0.65rem",
+                      }}
+                    >
+                      Chinese
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {d.platforms.chinese.map((p) => (
+                        <PlatformPill key={p} label={p} type="chinese" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Tags — solid color */}
               <div className="flex flex-wrap gap-2 mt-auto">
                 {d.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full"
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      backgroundColor: "var(--color-accent-glow)",
-                      color: "var(--color-accent)",
-                      border: "1px solid rgba(153,191,242,0.3)",
-                    }}
-                  >
-                    {tag}
-                  </span>
+                  <SolidTag key={tag} label={tag} variant="accent" />
                 ))}
               </div>
             </motion.div>

@@ -129,76 +129,143 @@ export default function HowItWorks() {
           </p>
         </motion.div>
 
-        {/* Progress bar */}
+        {/* Stepper UI */}
         <motion.div
           custom={1}
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="flex mb-10 rounded-full overflow-hidden"
-          style={{
-            border: "1px solid var(--color-border)",
-            backgroundColor: "var(--color-bg-card)",
-          }}
+          className="mb-16 hidden md:block"
         >
-          <div
-            className="flex items-center gap-2 px-5 py-2.5 flex-1"
-            style={{
-              backgroundColor: "var(--color-accent-glow)",
-              borderRight: "1px solid var(--color-border)",
-            }}
-          >
-            <span
-              className="text-xs font-medium tracking-wide"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
-            >
-              Trust Engine
-            </span>
-            <div className="flex gap-1 ml-auto">
-              {trustSteps.map((s) => (
-                <span
-                  key={s.num}
-                  className="text-xs rounded-full w-5 h-5 flex items-center justify-center"
-                  style={{
-                    backgroundColor: "var(--color-accent)",
-                    color: "var(--color-dark)",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "9px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {s.num.replace("0", "")}
-                </span>
-              ))}
+          {/* Group labels above */}
+          <div className="grid grid-cols-5 mb-6">
+            <div className="col-span-3 flex justify-center">
+              <span
+                className="px-4 py-1.5 rounded-full text-xs tracking-widest uppercase"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  backgroundColor: "var(--color-accent-glow)",
+                  color: "var(--color-accent)",
+                  border: "1px solid rgba(153,191,242,0.3)",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Trust Engine
+              </span>
+            </div>
+            <div className="col-span-2 flex justify-center">
+              <span
+                className="px-4 py-1.5 rounded-full text-xs tracking-widest uppercase"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  backgroundColor: "var(--color-green-glow)",
+                  color: "var(--color-green)",
+                  border: "1px solid rgba(128,191,132,0.35)",
+                  letterSpacing: "0.12em",
+                }}
+              >
+                Conversion Engine
+              </span>
             </div>
           </div>
-          <div
-            className="flex items-center gap-2 px-5 py-2.5 flex-1"
-            style={{ backgroundColor: "var(--color-green-glow)" }}
-          >
-            <span
-              className="text-xs font-medium tracking-wide"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--color-green)" }}
-            >
-              Conversion Engine
-            </span>
-            <div className="flex gap-1 ml-auto">
-              {conversionSteps.map((s) => (
-                <span
-                  key={s.num}
-                  className="text-xs rounded-full w-5 h-5 flex items-center justify-center"
-                  style={{
-                    backgroundColor: "var(--color-green)",
-                    color: "#fff",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "9px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {s.num.replace("0", "")}
-                </span>
-              ))}
+
+          {/* Stepper rail */}
+          <div className="relative">
+            {/* Connecting line — gradient transitions blue→green between step 3 and 4 */}
+            <div
+              className="absolute"
+              style={{
+                left: "10%",
+                right: "10%",
+                top: "23px",
+                height: "2px",
+                background:
+                  "linear-gradient(to right, var(--color-accent) 50%, var(--color-green) 75%)",
+                zIndex: 0,
+              }}
+            />
+
+            {/* Circles row */}
+            <div className="grid grid-cols-5 relative z-10">
+              {steps.map((step) => {
+                const Icon = step.icon;
+                const isTrust = step.engine === "trust";
+                const color = isTrust ? "var(--color-accent)" : "var(--color-green)";
+                const glow = isTrust ? "var(--color-accent-glow)" : "var(--color-green-glow)";
+
+                return (
+                  <div key={step.num} className="flex flex-col items-center gap-3">
+                    <div
+                      className="rounded-full flex items-center justify-center transition-transform duration-200"
+                      style={{
+                        width: 48,
+                        height: 48,
+                        background: `linear-gradient(${glow}, ${glow}), var(--color-bg)`,
+                        border: `2px solid ${color}`,
+                        boxShadow: "0 0 0 4px var(--color-bg)",
+                      }}
+                    >
+                      <Icon size={20} strokeWidth={1.8} style={{ color }} />
+                    </div>
+                    <div className="flex flex-col items-center gap-0.5 text-center">
+                      <span
+                        className="text-xs"
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          color: "var(--color-text-muted)",
+                          letterSpacing: "0.08em",
+                        }}
+                      >
+                        STEP {step.num}
+                      </span>
+                      <span
+                        className="text-sm font-semibold"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          color: "var(--color-text)",
+                        }}
+                      >
+                        {step.title}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
+          </div>
+        </motion.div>
+
+        {/* Mobile compact stepper — vertical group pills */}
+        <motion.div
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="md:hidden flex flex-col gap-3 mb-10"
+        >
+          <div className="flex items-center gap-3 flex-wrap">
+            <span
+              className="px-3 py-1 rounded-full text-xs tracking-widest uppercase"
+              style={{
+                fontFamily: "var(--font-mono)",
+                backgroundColor: "var(--color-accent-glow)",
+                color: "var(--color-accent)",
+                border: "1px solid rgba(153,191,242,0.3)",
+              }}
+            >
+              Trust Engine · 01–03
+            </span>
+            <span
+              className="px-3 py-1 rounded-full text-xs tracking-widest uppercase"
+              style={{
+                fontFamily: "var(--font-mono)",
+                backgroundColor: "var(--color-green-glow)",
+                color: "var(--color-green)",
+                border: "1px solid rgba(128,191,132,0.35)",
+              }}
+            >
+              Conversion Engine · 04–05
+            </span>
           </div>
         </motion.div>
 

@@ -115,7 +115,7 @@ export default function PackagePage() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="rounded-2xl p-8 md:p-10"
+              className="rounded-lg p-8 md:p-10"
               style={
                 pkg.accent
                   ? { backgroundColor: "var(--color-accent)", border: "none" }
