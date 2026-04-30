@@ -29,36 +29,6 @@ export default function FinalCta({ onOpenModal }: FinalCtaProps) {
       className="py-32 relative overflow-hidden"
       style={{ backgroundColor: "var(--color-dark)" }}
     >
-      {/* Background orbs */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: "20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "70vw",
-          height: "50vw",
-          maxWidth: 900,
-          maxHeight: 640,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(ellipse, rgba(153,191,242,0.18) 0%, transparent 65%)",
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "-10%",
-          right: "-5%",
-          width: "35vw",
-          height: "35vw",
-          maxWidth: 440,
-          maxHeight: 440,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(128,191,132,0.12) 0%, transparent 65%)",
-        }}
-      />
       {/* Dot grid */}
       <div
         className="absolute inset-0 pointer-events-none"

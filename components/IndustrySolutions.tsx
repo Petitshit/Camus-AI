@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 const industries = [
   {
     icon: Landmark,
+    image: "/industry-finance.avif",
     label: "Financial Services",
     context:
       "Clients ask AI to recommend advisors, investment platforms, and fintech products.",
@@ -18,6 +19,7 @@ const industries = [
   },
   {
     icon: HeartPulse,
+    image: "/industry-healthcare.avif",
     label: "Healthcare",
     context:
       "Patients and partners ask AI about providers, treatments, and health brands.",
@@ -26,6 +28,7 @@ const industries = [
   },
   {
     icon: GraduationCap,
+    image: "/industry-education.avif",
     label: "Education",
     context:
       "Students and families ask AI to compare programmes, institutions, and outcomes.",
@@ -94,23 +97,40 @@ export default function IndustrySolutions() {
                 variants={fadeUp}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                className="rounded-lg p-7 flex flex-col gap-5 cursor-default"
+                className="rounded-lg overflow-hidden flex flex-col cursor-default"
                 style={{
                   backgroundColor: "var(--color-bg-card)",
                   border: "1px solid var(--color-border-light)",
                 }}
                 whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(38,17,15,0.07)" }}
               >
-                <span
-                  className="flex items-center justify-center w-10 h-10 rounded-xl self-start"
-                  style={{ backgroundColor: "var(--color-accent-glow)" }}
-                >
-                  <Icon
-                    size={19}
-                    style={{ color: "var(--color-accent)" }}
-                    strokeWidth={1.8}
+                {/* Cover image with icon badge overlay */}
+                <div className="relative" style={{ aspectRatio: "16 / 9" }}>
+                  <img
+                    src={ind.image}
+                    alt={ind.label}
+                    className="absolute inset-0 w-full h-full"
+                    style={{ objectFit: "cover" }}
                   />
-                </span>
+                  <span
+                    className="absolute flex items-center justify-center w-10 h-10 rounded-xl"
+                    style={{
+                      bottom: 12,
+                      left: 12,
+                      backgroundColor: "rgba(255,255,255,0.92)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
+                    }}
+                  >
+                    <Icon
+                      size={19}
+                      style={{ color: "var(--color-accent)" }}
+                      strokeWidth={1.8}
+                    />
+                  </span>
+                </div>
+
+                <div className="p-7 flex flex-col gap-5">
                 <h3
                   className="font-semibold text-lg leading-snug"
                   style={{ fontFamily: "var(--font-sans)", color: "var(--color-text)" }}
@@ -169,6 +189,7 @@ export default function IndustrySolutions() {
                       {ind.conversionFocus}
                     </p>
                   </div>
+                </div>
                 </div>
               </motion.div>
             );
