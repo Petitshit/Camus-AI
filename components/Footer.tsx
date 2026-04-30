@@ -4,17 +4,17 @@ import Image from "next/image";
 import { theme } from "@/config/theme";
 
 const productLinks = [
-  { label: "What is GEO", href: "#what-is-geo" },
+  { label: "What is AI Trust", href: "#the-shift" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Platform Coverage", href: "#platforms" },
-  { label: "GENO Monitor", href: "#why-camus" },
+  { label: "Services", href: "#services" },
+  { label: "Measurement", href: "#measurement" },
 ];
 
 const companyLinks = [
-  { label: "About", href: "#" },
-  { label: "Careers", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Contact", href: `mailto:${theme.company.email}` },
+  { label: "About", href: "/about" },
+  { label: "Case Studies", href: "/case" },
+  { label: "Packages", href: "/package" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
@@ -41,9 +41,13 @@ export default function Footer() {
             />
             <p
               className="text-sm leading-relaxed"
-              style={{ color: "var(--color-text-dim)", fontFamily: "var(--font-sans)", maxWidth: "30ch" }}
+              style={{
+                color: "var(--color-text-dim)",
+                fontFamily: "var(--font-sans)",
+                maxWidth: "30ch",
+              }}
             >
-              {theme.company.tagline} We engineer consensus across every AI platform that matters.
+              AI Trust &amp; Conversion Solutions for brands that need to be chosen in AI search.
             </p>
           </div>
 
@@ -61,7 +65,11 @@ export default function Footer() {
                   <a
                     href={link.href}
                     className="text-sm transition-opacity duration-150 hover:opacity-60"
-                    style={{ color: "var(--color-text)", fontFamily: "var(--font-sans)", textDecoration: "none" }}
+                    style={{
+                      color: "var(--color-text)",
+                      fontFamily: "var(--font-sans)",
+                      textDecoration: "none",
+                    }}
                   >
                     {link.label}
                   </a>
@@ -84,7 +92,11 @@ export default function Footer() {
                   <a
                     href={link.href}
                     className="text-sm transition-opacity duration-150 hover:opacity-60"
-                    style={{ color: "var(--color-text)", fontFamily: "var(--font-sans)", textDecoration: "none" }}
+                    style={{
+                      color: "var(--color-text)",
+                      fontFamily: "var(--font-sans)",
+                      textDecoration: "none",
+                    }}
                   >
                     {link.label}
                   </a>
@@ -108,7 +120,11 @@ export default function Footer() {
           <a
             href={`mailto:${theme.company.email}`}
             className="text-xs transition-opacity hover:opacity-60"
-            style={{ color: "var(--color-text-muted)", fontFamily: "var(--font-sans)", textDecoration: "none" }}
+            style={{
+              color: "var(--color-text-muted)",
+              fontFamily: "var(--font-sans)",
+              textDecoration: "none",
+            }}
           >
             {theme.company.email}
           </a>

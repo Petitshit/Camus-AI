@@ -9,6 +9,9 @@ import TheFullPicture from "@/components/TheFullPicture";
 import HowItWorks from "@/components/HowItWorks";
 import Platforms from "@/components/Platforms";
 import WhyCamus from "@/components/WhyCamus";
+import Measurement from "@/components/Measurement";
+import IndustrySolutions from "@/components/IndustrySolutions";
+import EngagementModels from "@/components/EngagementModels";
 import OurClients from "@/components/OurClients";
 import FinalCta from "@/components/FinalCta";
 import Footer from "@/components/Footer";
@@ -28,8 +31,11 @@ export default function Home() {
       <TheFullPicture />
       <HowItWorks />
       <Platforms />
-      <OurClients />
       <WhyCamus />
+      <Measurement />
+      <IndustrySolutions />
+      <EngagementModels />
+      <OurClients />
       <FinalCta onOpenModal={openModal} />
       <Footer />
       <DiagnosisModal open={modalOpen} onClose={() => setModalOpen(false)} />

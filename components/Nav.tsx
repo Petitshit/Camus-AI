@@ -6,11 +6,10 @@ import { theme } from "@/config/theme";
 import Button from "@/components/ui/Button";
 
 const links = [
-  { label: "The Shift", href: "#the-shift" },
-  { label: "What is GEO", href: "#what-is-geo" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Platforms", href: "#platforms" },
-  { label: "Why Camus", href: "#why-camus" },
+  { label: "Main",    href: "/" },
+  { label: "Case",    href: "/case" },
+  { label: "Package", href: "/package" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function TypewriterLink({ label, href }: { label: string; href: string }) {
@@ -104,7 +103,7 @@ export default function Nav({ onOpenModal }: NavProps) {
         {/* CTA */}
         <div className="hidden md:block flex-shrink-0">
           <Button onClick={onOpenModal} size="sm">
-            Get Your Free Diagnosis →
+            Request an AI Visibility Audit →
           </Button>
         </div>
 
@@ -160,7 +159,7 @@ export default function Nav({ onOpenModal }: NavProps) {
             </a>
           ))}
           <Button onClick={() => { setOpen(false); onOpenModal(); }} size="sm" className="self-start mt-2">
-            Get Your Free Diagnosis →
+            Request an AI Visibility Audit →
           </Button>
         </div>
       )}
