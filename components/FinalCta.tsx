@@ -69,6 +69,24 @@ export default function FinalCta({ onOpenModal }: FinalCtaProps) {
         }}
       />
 
+      {/* Dithered SVG — spans full width, cropped by section overflow */}
+      <div
+        className="absolute inset-x-0 pointer-events-none flex items-center justify-center"
+        style={{ top: "50%", transform: "translateY(-50%)" }}
+      >
+        <img
+          src="/dithered-cta.svg"
+          alt=""
+          aria-hidden="true"
+          style={{
+            width: "100%",
+            height: "auto",
+            opacity: 0.5,
+            mixBlendMode: "screen",
+          }}
+        />
+      </div>
+
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
         <motion.div
           custom={0}

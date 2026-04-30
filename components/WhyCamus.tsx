@@ -186,7 +186,7 @@ export default function WhyCamus() {
                 variants={fadeUp}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
-                className="rounded-2xl p-7 flex flex-col gap-4 cursor-default"
+                className="rounded-lg p-7 flex flex-col gap-4 cursor-default"
                 style={{
                   backgroundColor: "var(--color-bg-card)",
                   border: "1px solid var(--color-border-light)",

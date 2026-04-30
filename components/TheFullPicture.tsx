@@ -84,52 +84,72 @@ export default function TheFullPicture() {
           animate={inView ? "visible" : "hidden"}
           className="mt-14"
         >
-          {/* Desktop: horizontal arrow flow */}
-          <div className="hidden md:grid grid-cols-4 gap-0">
+          {/* Desktop: horizontal arrow flow — grid stretches all cards to equal height */}
+          <div
+            className="hidden md:grid"
+            style={{
+              gridTemplateColumns: "1fr auto 1fr auto 1fr auto 1fr",
+              gridTemplateRows: "auto 1fr",
+              columnGap: "1rem",
+              rowGap: "0.75rem",
+            }}
+          >
             {flowSteps.map((step, i) => (
-              <div key={step.label} className="flex items-start">
-                <div className="flex flex-col gap-3 flex-1 pr-4">
-                  {/* Step number */}
-                  <span
-                    className="text-xs tracking-widest"
-                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}
-                  >
-                    0{i + 1}
-                  </span>
-                  {/* Card */}
-                  <div
-                    className="rounded-xl p-5 flex flex-col gap-2"
-                    style={{
-                      backgroundColor: "var(--color-bg-card)",
-                      border: "1px solid var(--color-border-light)",
-                    }}
-                  >
-                    <h4
-                      className="font-semibold text-sm leading-snug"
-                      style={{
-                        fontFamily: "var(--font-sans)",
-                        color: "var(--color-text)",
-                      }}
-                    >
-                      {step.label}
-                    </h4>
-                    <p
-                      className="text-xs leading-relaxed"
-                      style={{ color: "rgba(38,17,15,0.65)", fontFamily: "var(--font-sans)" }}
-                    >
-                      {step.desc}
-                    </p>
-                  </div>
-                </div>
-                {/* Arrow connector */}
-                {i < flowSteps.length - 1 && (
-                  <div
-                    className="flex items-center pt-8 flex-shrink-0"
-                    style={{ color: "var(--color-accent)", fontSize: "1.5rem" }}
-                  >
-                    →
-                  </div>
-                )}
+              <span
+                key={`num-${i}`}
+                className="text-xs tracking-widest"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  color: "var(--color-text-muted)",
+                  gridRow: 1,
+                  gridColumn: i * 2 + 1,
+                }}
+              >
+                0{i + 1}
+              </span>
+            ))}
+
+            {flowSteps.map((step, i) => (
+              <div
+                key={`card-${i}`}
+                className="rounded-lg p-5 flex flex-col gap-2"
+                style={{
+                  backgroundColor: "var(--color-bg-card)",
+                  border: "1px solid var(--color-border-light)",
+                  gridRow: 2,
+                  gridColumn: i * 2 + 1,
+                }}
+              >
+                <h4
+                  className="font-semibold text-sm leading-snug"
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    color: "var(--color-text)",
+                  }}
+                >
+                  {step.label}
+                </h4>
+                <p
+                  className="text-xs leading-relaxed"
+                  style={{ color: "rgba(38,17,15,0.65)", fontFamily: "var(--font-sans)" }}
+                >
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+
+            {flowSteps.slice(0, -1).map((_, i) => (
+              <div
+                key={`arrow-${i}`}
+                className="flex items-center justify-center"
+                style={{
+                  gridRow: 2,
+                  gridColumn: i * 2 + 2,
+                  color: "var(--color-accent)",
+                  fontSize: "1.5rem",
+                }}
+              >
+                →
               </div>
             ))}
           </div>
@@ -139,7 +159,7 @@ export default function TheFullPicture() {
             {flowSteps.map((step, i) => (
               <div key={step.label} className="flex flex-col gap-2">
                 <div
-                  className="rounded-xl p-5 flex flex-col gap-2"
+                  className="rounded-lg p-5 flex flex-col gap-2"
                   style={{
                     backgroundColor: "var(--color-bg-card)",
                     border: "1px solid var(--color-border-light)",

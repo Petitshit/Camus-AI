@@ -39,7 +39,7 @@ function MetricCard({
 }) {
   return (
     <div
-      className="rounded-xl p-5 flex flex-col gap-2"
+      className="rounded-lg p-5 flex flex-col gap-2"
       style={{
         backgroundColor: "var(--color-bg-card)",
         border: "1px solid var(--color-border-light)",
