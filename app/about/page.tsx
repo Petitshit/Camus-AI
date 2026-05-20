@@ -13,9 +13,66 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+type StandardItem = {
+  num: string;
+  title: string;
+  body: string;
+  details: string;
+  table?: { left: string; right: string }[];
+};
+
+const standard: StandardItem[] = [
+  {
+    num: "01",
+    title: "AI understands you.",
+    body:
+      "We do not simply optimize content. We build information systems that AI can understand, validate, and cite.",
+    details:
+      "In the age of AI search, the ultimate challenge for every brand is not ranking — it is whether AI understands who you are, trusts what you say, and chooses to recommend you when a user asks.",
+  },
+  {
+    num: "02",
+    title: "AI trusts you.",
+    body:
+      "Our team is built on enterprise software DNA, with backgrounds across NUS, NTU, Imperial College London, and IBM — not traditional marketing agency backgrounds.",
+    details:
+      "Camus helps brands build an AI-native information architecture: a structured, verifiable, and consistently expressed identity that AI search engines can parse, validate, and cite with confidence.",
+  },
+  {
+    num: "03",
+    title: "AI recommends you.",
+    body:
+      "GEO is not the next SEO. It is the infrastructure layer for how brands are understood in AI search.",
+    details:
+      "Most GEO teams come from SEO or content marketing. They see GEO as “content optimization for AI.”\n\nWe see GEO differently. Our team spent years building enterprise software, CRM systems, customer data platforms, and workflow automation for Fortune 500 companies and high-growth startups. That background is not incidental — it is the exact skill set GEO demands:",
+    table: [
+      {
+        left: "Enterprise system architecture",
+        right:
+          "GEO ends in systems, not copy. We architect how AI reads your brand infrastructure.",
+      },
+      {
+        left: "CRM & customer data management",
+        right:
+          "We help AI understand your brand the way a CRM structures customer knowledge — through entities, attributes, and relationships.",
+      },
+      {
+        left: "Workflow & SOP automation",
+        right:
+          "Model distillation turns your business SOPs into instructions AI can process natively.",
+      },
+      {
+        left: "Cross-market communication",
+        right:
+          "We speak the same professional language across Chinese and English AI search engines.",
+      },
+    ],
+  },
+];
 
 const differentiators = [
   {
@@ -48,19 +105,19 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-6 py-24">
         {/* Hero */}
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="mb-20">
-          <SectionLabel className="mb-4">About Camus</SectionLabel>
+          <SectionLabel className="mb-4">AI Trust &amp; Conversion</SectionLabel>
           <h1
             className="font-serif font-light leading-tight mb-6"
             style={{
               fontFamily: "var(--font-serif)",
               fontSize: "clamp(2.4rem, 5vw, 3.75rem)",
               color: "var(--color-text)",
-              maxWidth: "20ch",
+              maxWidth: "22ch",
             }}
           >
-            AI Trust &amp; Conversion.{" "}
+            CAMUS —{" "}
             <em style={{ color: "var(--color-accent)", fontStyle: "italic" }}>
-              Done differently.
+              The Brand AI Actually Recommends
             </em>
           </h1>
           <p
@@ -71,18 +128,195 @@ export default function AboutPage() {
               maxWidth: "60ch",
             }}
           >
-            Camus is an AI Trust &amp; Conversion consultancy. We help brands become visible,
-            trusted, and chosen inside AI-generated decisions — across global and Chinese AI
-            ecosystems.
+            Camus is an enterprise GEO system architecture firm that rebuilds brand information
+            systems for AI search engines.
           </p>
         </motion.div>
 
-        {/* Differentiators */}
+        {/* Part 1 — Camus GEO Standard */}
+        <motion.div
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mb-14 pt-10"
+          style={{ borderTop: "1px solid var(--color-border)" }}
+        >
+          <SectionLabel className="mb-3">The Camus GEO Standard</SectionLabel>
+          <p
+            className="text-base leading-relaxed"
+            style={{
+              color: "rgba(38,17,15,0.65)",
+              fontFamily: "var(--font-sans)",
+              maxWidth: "60ch",
+            }}
+          >
+            Three principles that define how Camus rebuilds brands for AI search.
+          </p>
+        </motion.div>
+
+        <div className="flex flex-col gap-16 mb-24">
+          {standard.map((item, i) => (
+            <motion.div
+              key={item.num}
+              custom={i + 2}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col gap-8"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
+                {/* Left — num + title */}
+                <div>
+                  <span
+                    className="text-xs tracking-widest block mb-3"
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}
+                  >
+                    {item.num}
+                  </span>
+                  <h2
+                    className="font-serif font-light leading-tight"
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
+                      color: "var(--color-text)",
+                    }}
+                  >
+                    {item.title}
+                  </h2>
+                </div>
+
+                {/* Right — body + details */}
+                <div className="flex flex-col gap-5">
+                  <p
+                    className="leading-snug"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "1.05rem",
+                      fontWeight: 600,
+                      color: "var(--color-text)",
+                    }}
+                  >
+                    {item.body}
+                  </p>
+                  {item.details.split("\n\n").map((para, j) => (
+                    <p
+                      key={j}
+                      className="text-base leading-relaxed"
+                      style={{
+                        color: "rgba(38,17,15,0.75)",
+                        fontFamily: "var(--font-sans)",
+                      }}
+                    >
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Full-width breakout table (item 03 only) */}
+              {item.table && (
+                <div
+                  className="rounded-lg overflow-hidden"
+                  style={{
+                    backgroundColor: "var(--color-bg-card)",
+                    border: "1px solid var(--color-border-light)",
+                  }}
+                >
+                  {/* Header */}
+                  <div
+                    className="grid grid-cols-1 sm:grid-cols-[1fr_1.6fr]"
+                    style={{
+                      backgroundColor: "var(--color-bg-elevated)",
+                      borderBottom: "1px solid var(--color-border-light)",
+                    }}
+                  >
+                    <div
+                      className="px-5 py-3 text-xs tracking-widest uppercase"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--color-text-muted)",
+                        borderRight: "1px solid var(--color-border-light)",
+                      }}
+                    >
+                      Enterprise Software Background
+                    </div>
+                    <div
+                      className="px-5 py-3 text-xs tracking-widest uppercase"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      GEO Advantage
+                    </div>
+                  </div>
+
+                  {/* Rows */}
+                  {item.table.map((row, k) => (
+                    <div
+                      key={row.left}
+                      className="grid grid-cols-1 sm:grid-cols-[1fr_1.6fr]"
+                      style={{
+                        borderTop: k === 0 ? "none" : "1px solid var(--color-border-light)",
+                      }}
+                    >
+                      <div
+                        className="px-5 py-4 text-sm"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontWeight: 600,
+                          color: "var(--color-text)",
+                          borderRight: "1px solid var(--color-border-light)",
+                        }}
+                      >
+                        {row.left}
+                      </div>
+                      <div
+                        className="px-5 py-4 text-sm leading-relaxed"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          color: "rgba(38,17,15,0.78)",
+                        }}
+                      >
+                        {row.right}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Part 2 — Camus Solution */}
+        <motion.div
+          custom={5}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mb-14 pt-10"
+          style={{ borderTop: "1px solid var(--color-border)" }}
+        >
+          <SectionLabel className="mb-3">The Camus Solution</SectionLabel>
+          <p
+            className="text-base md:text-lg leading-relaxed"
+            style={{
+              color: "rgba(38,17,15,0.75)",
+              fontFamily: "var(--font-sans)",
+              maxWidth: "60ch",
+            }}
+          >
+            We help brands become visible, trusted, and chosen inside AI-generated decisions —
+            across global and Chinese AI ecosystems.
+          </p>
+        </motion.div>
+
         <div className="flex flex-col gap-16">
           {differentiators.map((d, i) => (
             <motion.div
               key={d.num}
-              custom={i + 1}
+              custom={i + 6}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -142,7 +376,7 @@ export default function AboutPage() {
 
         {/* CTA */}
         <motion.div
-          custom={4}
+          custom={10}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
