@@ -103,7 +103,7 @@ export default function DiagnosisModal({ open, onClose }: DiagnosisModalProps) {
       setSuccess(true);
       setForm(initialForm);
     } catch {
-      setError("Something went wrong. Please email us directly at hello@camus.ai");
+      setError("Something went wrong. Please email us directly at echoliu@camus.one");
     } finally {
       setLoading(false);
     }
