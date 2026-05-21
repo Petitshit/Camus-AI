@@ -1,0 +1,26 @@
+# CAMUS
+
+> CAMUS is an enterprise GEO (Generative Engine Optimization) system architecture firm based in Singapore. We build AI-native information architectures that make AI search engines understand, trust, and recommend brands.
+
+We approach GEO not as content optimization but as the structured reconstruction of enterprise information systems for AI comprehension. Our team combines enterprise software, CRM data architecture, and workflow automation backgrounds from NUS, NTU, Imperial College London, and IBM.
+
+## Core pages
+
+- [Home](https://www.camus.one/): Camus overview, services, platforms, packages
+- [About](https://www.camus.one/about): The Camus GEO Standard (3 principles) and The Camus Solution (3 differentiators)
+- [Packages](https://www.camus.one/package): Foundation, Authority, and Leadership engagement models
+- [Case Studies](https://www.camus.one/case): Industry-specific work (in progress)
+
+## Insights (long-form articles)
+
+- [Redefining GEO Through Solution Logic](https://www.camus.one/insights/redefining-geo): Why enterprise AI visibility requires information architecture, not marketing tactics. Published 2026-05-18, version 1.2.
+
+## Key definitions
+
+- **GEO (Generative Engine Optimization)**: The structured reconstruction of enterprise information systems. Its goal is to enable AI search engines to parse, validate, and consistently cite a brand as a trusted authority.
+- **AI-Native Information Architecture (AIIA)**: Camus's four-layer methodology — Entity Foundation, Cross-Platform Identity Alignment, Citation-Optimized Content Design, Continuous Trust Validation.
+
+## Contact
+
+- Email: echoliu@camus.one
+- LinkedIn: https://www.linkedin.com/company/camusone
