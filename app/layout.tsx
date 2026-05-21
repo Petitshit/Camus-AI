@@ -42,7 +42,7 @@ const organizationSchema = {
     name: "Singapore",
   },
   sameAs: [
-    "https://www.linkedin.com/company/camus-one",
+    "https://www.linkedin.com/company/camusone",
     "https://github.com/camus-one",
   ],
 };
