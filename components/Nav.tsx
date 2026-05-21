@@ -6,11 +6,11 @@ import { theme } from "@/config/theme";
 import Button from "@/components/ui/Button";
 
 const links = [
-  { label: "Main",    href: "/" },
-  { label: "About",   href: "/about" },
-  { label: "Case",    href: "/case" },
-  { label: "Package", href: "/package" },
-  { label: "Contact", href: "/contact" },
+  { label: "Main",     href: "/" },
+  { label: "About",    href: "/about" },
+  { label: "Case",     href: "/case" },
+  { label: "Package",  href: "/package" },
+  { label: "Insights", href: "/insights" },
 ];
 
 function TypewriterLink({ label, href }: { label: string; href: string }) {

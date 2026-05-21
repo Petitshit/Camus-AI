@@ -3,13 +3,48 @@ import "./globals.css";
 import { theme } from "@/config/theme";
 
 export const metadata: Metadata = {
-  title: "Camus — Generative Engine Optimization",
-  description: "The magic serum for AI-age brand presence. We engineer consensus across every AI platform that matters.",
+  title: "CAMUS — The Brand AI Actually Recommends",
+  description:
+    "Enterprise GEO System Architecture. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
   icons: {
     icon: "/favicon-rounded.svg",
     shortcut: "/favicon-rounded.svg",
     apple: "/favicon-rounded.svg",
   },
+};
+
+// ── Site-wide Organization schema (JSON-LD) ──
+// Tells every AI crawler "this entire site is owned by the CAMUS Organization entity".
+// Page-specific schemas (Article, FAQPage) can reference this via @id.
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.camus.one/#organization",
+  name: "CAMUS",
+  alternateName: ["CAMUS GEO", "CAMUS AI Visibility"],
+  url: "https://www.camus.one",
+  logo: "https://www.camus.one/logo.svg",
+  description:
+    "Enterprise GEO System Architecture. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
+  knowsAbout: [
+    "Generative Engine Optimization",
+    "AI Visibility",
+    "Enterprise Information Architecture",
+    "Schema.org Implementation",
+    "Model Distillation",
+    "Multi-Agent Systems",
+    "CRM Data Architecture",
+    "Enterprise Software Design",
+    "Cross-Market Brand Communication",
+  ],
+  foundingLocation: {
+    "@type": "Place",
+    name: "Singapore",
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/camus-one",
+    "https://github.com/camus-one",
+  ],
 };
 
 export default function RootLayout({
@@ -42,6 +77,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={cssVars}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
         {children}
       </body>
     </html>

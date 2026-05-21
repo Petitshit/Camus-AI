@@ -30,7 +30,7 @@ export const theme = {
   },
   company: {
     name: "Camus",
-    email: "hello@camus.ai",
+    email: "echoliu@camus.one",
     tagline: "The magic serum for AI-age brand presence.",
   },
 } as const;

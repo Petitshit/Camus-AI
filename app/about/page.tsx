@@ -7,6 +7,23 @@ import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
+import { faqs } from "@/data/faqs";
+
+// ── About-page FAQPage schema ──
+// Same FAQ content as the Footer (single source of truth in data/faqs.ts).
+// Google requires schema text to match what's visible on the page.
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -100,12 +117,25 @@ export default function AboutPage() {
 
   return (
     <main style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh" }}>
+      {/* About-page version meta tags (React 19 hoists these to <head>) */}
+      <meta name="datePublished" content="2026-05-18" />
+      <meta name="version" content="1.1" />
+      <meta name="dateModified" content="2026-05-19" />
+
+      {/* FAQPage JSON-LD — makes the 5 footer FAQs machine-readable for AI */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqPageSchema),
+        }}
+      />
+
       <Nav onOpenModal={() => setModalOpen(true)} />
 
       <div className="max-w-4xl mx-auto px-6 py-24">
         {/* Hero */}
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="mb-20">
-          <SectionLabel className="mb-4">AI Trust &amp; Conversion</SectionLabel>
+          <SectionLabel className="mb-4">AI Trust &amp; Conversion Solutions</SectionLabel>
           <h1
             className="font-serif font-light leading-tight mb-6"
             style={{
@@ -128,8 +158,18 @@ export default function AboutPage() {
               maxWidth: "60ch",
             }}
           >
-            Camus is an enterprise GEO system architecture firm that rebuilds brand information
-            systems for AI search engines.
+            <dfn
+              itemScope
+              itemType="https://schema.org/DefinedTerm"
+              className="ai-definition"
+              style={{ fontStyle: "normal" }}
+            >
+              <span itemProp="name">CAMUS</span>{" "}
+              <span itemProp="description">
+                is an enterprise GEO system architecture firm that rebuilds brand information
+                systems for AI search engines.
+              </span>
+            </dfn>
           </p>
         </motion.div>
 
@@ -385,8 +425,8 @@ export default function AboutPage() {
           <Button onClick={() => setModalOpen(true)} size="lg">
             Request an AI Visibility Audit →
           </Button>
-          <Button href="/contact" variant="ghost" size="lg">
-            Get in Touch
+          <Button href="/insights" variant="ghost" size="lg">
+            Read Our Insights
           </Button>
         </motion.div>
       </div>
