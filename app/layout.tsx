@@ -2,14 +2,62 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { theme } from "@/config/theme";
 
+const SITE_URL = "https://www.camus.one";
+const SITE_TITLE = "CAMUS — The Brand AI Actually Recommends";
+const SITE_DESCRIPTION =
+  "Enterprise GEO System Architecture. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.";
+
 export const metadata: Metadata = {
-  title: "CAMUS — The Brand AI Actually Recommends",
-  description:
-    "Enterprise GEO System Architecture. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    // %s = per-page title set via that page's metadata.title — falls back to default
+    template: "%s — CAMUS",
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: "CAMUS",
+  authors: [{ name: "CAMUS", url: SITE_URL }],
+  keywords: [
+    "Generative Engine Optimization",
+    "GEO",
+    "AI Visibility",
+    "Enterprise Information Architecture",
+    "AI Search",
+    "Schema.org",
+    "Model Distillation",
+    "Singapore",
+  ],
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "CAMUS",
+    locale: "en_US",
+    url: SITE_URL,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    // Image auto-handled by app/opengraph-image.tsx (dynamic 1200×630 PNG)
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
   icons: {
     icon: "/favicon-rounded.svg",
     shortcut: "/favicon-rounded.svg",
     apple: "/favicon-rounded.svg",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
