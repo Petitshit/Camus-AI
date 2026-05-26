@@ -20,6 +20,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: "2026-05-19",
       changeFrequency: "monthly",
       priority: 0.9,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/about`,
+          "zh-CN": `${SITE_URL}/about/zh`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/about/zh`,
+      lastModified: "2026-05-20",
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/about`,
+          "zh-CN": `${SITE_URL}/about/zh`,
+        },
+      },
     },
     {
       url: `${SITE_URL}/case`,

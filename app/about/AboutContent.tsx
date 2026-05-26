@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
+import LanguageToggle from "@/components/LanguageToggle";
 import { faqs } from "@/data/faqs";
 
 // ── About-page FAQPage schema ──
@@ -135,7 +136,10 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-6 py-24">
         {/* Hero */}
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="mb-20">
-          <SectionLabel className="mb-4">AI Trust &amp; Conversion Solutions</SectionLabel>
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <SectionLabel>AI Trust &amp; Conversion Solutions</SectionLabel>
+            <LanguageToggle current="en" enHref="/about" zhHref="/about/zh" />
+          </div>
           <h1
             className="font-serif font-light leading-tight mb-6"
             style={{
