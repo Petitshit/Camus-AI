@@ -1,0 +1,110 @@
+name: Site Health Check
+
+# Runs daily at 08:00 UTC (16:00 Singapore) and can be triggered manually.
+# If any check fails, GitHub emails the repo owner (watchers).
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch: {} # manual run button in Actions UI
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✓ Home page returns 200
+        run: |
+          STATUS=$(curl -sLo /dev/null -w "%{http_code}" https://www.camus.one/)
+          echo "Home: HTTP $STATUS"
+          [ "$STATUS" = "200" ] || { echo "::error::Home page returned $STATUS"; exit 1; }
+
+      - name: ✓ All core routes return 200
+        run: |
+          for path in /about /case /package /insights /insights/redefining-geo; do
+            STATUS=$(curl -sLo /dev/null -w "%{http_code}" "https://www.camus.one${path}")
+            echo "${path}: HTTP $STATUS"
+            [ "$STATUS" = "200" ] || { echo "::error::${path} returned $STATUS"; exit 1; }
+          done
+
+      - name: ✓ Apex → www redirects with 301
+        run: |
+          STATUS=$(curl -sI https://camus.one/ | grep -i "^HTTP/2" | awk '{print $2}')
+          LOCATION=$(curl -sI https://camus.one/ | grep -i "^location:" | awk '{print $2}' | tr -d '\r')
+          echo "Apex: HTTP $STATUS → $LOCATION"
+          [ "$STATUS" = "301" ] || { echo "::error::Apex redirect status is $STATUS, expected 301"; exit 1; }
+          echo "$LOCATION" | grep -q "https://www.camus.one" || { echo "::error::Apex doesn't redirect to www"; exit 1; }
+
+      - name: ✓ Sitemap, robots, llms.txt all live
+        run: |
+          for path in /sitemap.xml /robots.txt /llms.txt; do
+            STATUS=$(curl -sLo /dev/null -w "%{http_code}" "https://www.camus.one${path}")
+            echo "${path}: HTTP $STATUS"
+            [ "$STATUS" = "200" ] || { echo "::error::${path} returned $STATUS"; exit 1; }
+          done
+
+      - name: ✓ Sitemap contains all expected URLs
+        run: |
+          SITEMAP=$(curl -sL https://www.camus.one/sitemap.xml)
+          for url in "https://www.camus.one/" "https://www.camus.one/about" "https://www.camus.one/case" "https://www.camus.one/package" "https://www.camus.one/insights" "https://www.camus.one/insights/redefining-geo"; do
+            echo "$SITEMAP" | grep -q "<loc>${url}</loc>" || { echo "::error::Sitemap missing ${url}"; exit 1; }
+            echo "✓ ${url}"
+          done
+
+      - name: ✓ Robots.txt allows all crawlers
+        run: |
+          ROBOTS=$(curl -sL https://www.camus.one/robots.txt)
+          echo "$ROBOTS"
+          echo "$ROBOTS" | grep -q "Allow: /" || { echo "::error::robots.txt missing 'Allow: /'"; exit 1; }
+          echo "$ROBOTS" | grep -q "Sitemap:" || { echo "::error::robots.txt missing 'Sitemap:' directive"; exit 1; }
+
+      - name: ✓ Organization schema present site-wide
+        run: |
+          for path in / /about /insights/redefining-geo; do
+            HTML=$(curl -sL "https://www.camus.one${path}")
+            echo "$HTML" | grep -q '"@type":"Organization"' || { echo "::error::${path} missing Organization schema"; exit 1; }
+            echo "$HTML" | grep -q '"@id":"https://www.camus.one/#organization"' || { echo "::error::${path} missing Organization @id"; exit 1; }
+            echo "✓ ${path}: Organization schema present"
+          done
+
+      - name: ✓ FAQ schema on /about
+        run: |
+          HTML=$(curl -sL https://www.camus.one/about)
+          echo "$HTML" | grep -q '"@type":"FAQPage"' || { echo "::error::/about missing FAQPage schema"; exit 1; }
+          QCOUNT=$(echo "$HTML" | grep -o '"@type":"Question"' | wc -l)
+          echo "FAQ Questions found: $QCOUNT"
+          [ "$QCOUNT" -ge 5 ] || { echo "::error::Expected ≥5 FAQ questions, got $QCOUNT"; exit 1; }
+
+      - name: ✓ Article schema on insights article
+        run: |
+          HTML=$(curl -sL https://www.camus.one/insights/redefining-geo)
+          echo "$HTML" | grep -q '"@type":"Article"' || { echo "::error::Article schema missing"; exit 1; }
+          echo "$HTML" | grep -q '"datePublished":"2026-05-18"' || { echo "::error::datePublished missing or wrong"; exit 1; }
+          echo "$HTML" | grep -q '"@type":"SpeakableSpecification"' || { echo "::error::Speakable schema missing"; exit 1; }
+
+      - name: ✓ OpenGraph + Twitter tags on home
+        run: |
+          HTML=$(curl -sL https://www.camus.one/)
+          echo "$HTML" | grep -q 'property="og:title"' || { echo "::error::og:title missing"; exit 1; }
+          echo "$HTML" | grep -q 'property="og:image"' || { echo "::error::og:image missing"; exit 1; }
+          echo "$HTML" | grep -q 'name="twitter:card"' || { echo "::error::twitter:card missing"; exit 1; }
+
+      - name: ✓ Dynamic OG image renders
+        run: |
+          STATUS=$(curl -sLo /dev/null -w "%{http_code}" https://www.camus.one/opengraph-image)
+          CONTENT_TYPE=$(curl -sLI https://www.camus.one/opengraph-image | grep -i "^content-type" | tr -d '\r')
+          echo "OG image: HTTP $STATUS, $CONTENT_TYPE"
+          [ "$STATUS" = "200" ] || { echo "::error::OG image returned $STATUS"; exit 1; }
+          echo "$CONTENT_TYPE" | grep -qi "image/png" || { echo "::error::OG image content-type is not PNG"; exit 1; }
+
+      - name: ✓ Google Search Console verification file still present
+        run: |
+          STATUS=$(curl -sLo /dev/null -w "%{http_code}" https://www.camus.one/google63f135264508b52b.html)
+          [ "$STATUS" = "200" ] || { echo "::error::GSC verification file is missing — Google may un-verify"; exit 1; }
+
+      - name: ✓ LinkedIn URL correct in schema (no hyphen)
+        run: |
+          HTML=$(curl -sL https://www.camus.one/)
+          echo "$HTML" | grep -q "linkedin.com/company/camusone" || { echo "::error::LinkedIn URL incorrect in schema"; exit 1; }
+          ! echo "$HTML" | grep -q "linkedin.com/company/camus-one" || { echo "::error::Old hyphenated LinkedIn URL still present"; exit 1; }
+
+      - name: 🎉 All checks passed
+        run: echo "All 11 site health checks passed."

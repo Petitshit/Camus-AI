@@ -11,12 +11,19 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: {
     canonical: URL,
+    languages: {
+      en: URL,
+      "zh-CN": "https://www.camus.one/about/zh",
+      "x-default": URL,
+    },
   },
   openGraph: {
     type: "website",
     url: URL,
     title: TITLE,
     description: DESCRIPTION,
+    locale: "en_US",
+    alternateLocale: ["zh_CN"],
   },
   twitter: {
     card: "summary_large_image",

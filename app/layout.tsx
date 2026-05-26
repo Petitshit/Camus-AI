@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { theme } from "@/config/theme";
+
+// Google Analytics 4 — measurement ID is set as an env var in Vercel
+// (NEXT_PUBLIC_GA_ID = "G-XXXXXXXXXX"). If unset, GA4 simply doesn't load.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const SITE_URL = "https://www.camus.one";
 const SITE_TITLE = "CAMUS — The Brand AI Actually Recommends";
@@ -131,7 +137,29 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+
+        {/* Google Analytics 4 — only loads if NEXT_PUBLIC_GA_ID is set in Vercel */}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', { anonymize_ip: true });
+              `}
+            </Script>
+          </>
+        )}
+
         {children}
+
+        {/* Vercel Analytics — auto-tracks pageviews + web vitals, no config needed */}
+        <Analytics />
       </body>
     </html>
   );
