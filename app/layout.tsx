@@ -79,18 +79,32 @@ const organizationSchema = {
   url: "https://www.camus.one",
   logo: "https://www.camus.one/logo.svg",
   description:
-    "Enterprise GEO System Architecture. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
+    "Enterprise GEO System Architecture and AI Visibility Solutions. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
+  slogan:
+    "We do not optimize content for AI. We design structured information systems.",
+  inLanguage: ["en", "zh-CN"],
   knowsAbout: [
     "Generative Engine Optimization",
     "AI Visibility",
     "Enterprise Information Architecture",
+    "Information Architecture",
     "Schema.org Implementation",
     "Model Distillation",
     "Multi-Agent Systems",
     "CRM Data Architecture",
-    "Enterprise Software Design",
+    "Enterprise Software Architecture",
     "Cross-Market Brand Communication",
+    "Data Modeling",
   ],
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "SG",
+    addressLocality: "Singapore",
+  },
+  areaServed: {
+    "@type": "Place",
+    name: "Asia-Pacific and Global Markets",
+  },
   foundingLocation: {
     "@type": "Place",
     name: "Singapore",
@@ -99,6 +113,59 @@ const organizationSchema = {
     "https://www.linkedin.com/company/camusone",
     "https://github.com/camus-one",
   ],
+  // Note: founder + employee Person schemas intentionally omitted until real
+  // names + LinkedIn URLs are provided. Placeholder names are worse than none.
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "CAMUS GEO Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Enterprise GEO System Architecture",
+          description:
+            "Design end-to-end information architecture for enterprise brands targeting AI search engines — entity definitions, Schema.org deployment, and cross-platform source mapping.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "AI Visibility Diagnosis",
+          description:
+            "Evaluate brand visibility and citation quality across major AI platforms — ChatGPT, Perplexity, Kimi, Wenxin Yiyan, Doubao, Google AI Mode — and identify blind spots.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Schema.org Implementation",
+          description:
+            "Deploy structured data markup on the website, blog, and key product pages so AI crawlers accurately parse brand identity, services, and team credentials.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Cross-Platform Source Governance",
+          description:
+            "Unify brand descriptions across LinkedIn, Zhihu, WeChat, Baidu Baike, and press coverage to build a consistent, AI-trustworthy citation network.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Multilingual GEO Deployment",
+          description:
+            "Synchronize visibility optimization across English and Chinese AI ecosystems so the brand is consistently recognized and recommended in both markets.",
+        },
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

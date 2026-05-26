@@ -12,6 +12,19 @@ export const metadata: Metadata = {
   // already includes the brand, so we render it as-is.
   title: { absolute: TITLE },
   description: DESCRIPTION,
+  // Page-level keywords override layout's English keywords on this Chinese route
+  keywords: [
+    "GEO",
+    "生成式引擎优化",
+    "AI 可见性",
+    "企业信息架构",
+    "Schema 部署",
+    "AI 搜索优化",
+    "CAMUS",
+    "新加坡 GEO",
+    "企业 AI 搜索",
+    "中文 AI 搜索引擎",
+  ],
   alternates: {
     canonical: URL,
     languages: {
