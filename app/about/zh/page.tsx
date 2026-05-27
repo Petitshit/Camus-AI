@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import AboutZhContent from "./AboutZhContent";
 
-const TITLE = "关于 CAMUS — 企业 GEO 系统架构与 AI 可见性服务";
+// Per teammate's bilingual entity-signaling spec — exact strings.
+const TITLE = "CAMUS - 企业GEO系统架构与AI可见性服务 | 生成式引擎优化";
+const OG_TITLE = "CAMUS - 企业GEO系统架构与AI可见性服务";
 const DESCRIPTION =
-  "CAMUS 专注于 GEO（生成式引擎优化）系统架构，为企业品牌设计面向 AI 搜索引擎的结构化信息系统。总部位于新加坡，服务亚太及全球市场。";
+  "CAMUS专注于GEO（生成式引擎优化）系统架构，为企业品牌设计面向AI搜索引擎的结构化信息系统。总部位于新加坡，服务亚太及全球市场。";
+const OG_DESCRIPTION =
+  "为企业品牌设计面向AI搜索引擎的结构化信息系统。";
 const URL = "https://www.camus.one/about/zh";
 const EN_URL = "https://www.camus.one/about";
 
@@ -36,15 +40,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: URL,
-    title: TITLE,
-    description: DESCRIPTION,
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
     locale: "zh_CN",
     alternateLocale: ["en_US"],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
   },
 };
 

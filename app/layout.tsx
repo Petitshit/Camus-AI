@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { theme } from "@/config/theme";
@@ -96,6 +97,24 @@ const organizationSchema = {
     "Cross-Market Brand Communication",
     "Data Modeling",
   ],
+  // Bilingual descriptions — both languages in one schema. AI agents pick
+  // the appropriate one based on page context. Non-standard property but
+  // harmless (parsers ignore unknown fields) and aligns with the teammate's
+  // bilingual entity-signaling intent.
+  descriptionInLanguage: [
+    {
+      "@type": "LanguageString",
+      inLanguage: "en",
+      description:
+        "CAMUS specializes in Enterprise GEO System Architecture and AI Visibility solutions, helping brands build structured information systems for AI search engines. Based in Singapore, serving Asia-Pacific and global markets.",
+    },
+    {
+      "@type": "LanguageString",
+      inLanguage: "zh",
+      description:
+        "CAMUS专注于GEO（生成式引擎优化）系统架构，为企业品牌设计面向AI搜索引擎的结构化信息系统。团队核心成员来自企业级软件架构背景，总部位于新加坡，服务亚太及全球市场。",
+    },
+  ],
   address: {
     "@type": "PostalAddress",
     addressCountry: "SG",
@@ -168,11 +187,26 @@ const organizationSchema = {
   },
 };
 
-export default function RootLayout({
+// Map a route prefix to the appropriate HTML lang attribute.
+// AI crawlers + screen readers + browser i18n APIs all rely on <html lang>.
+// Currently /about/zh is the only Chinese route — extend this map as more
+// Chinese pages are added.
+function langForPath(pathname: string): "en" | "zh-CN" {
+  if (pathname.startsWith("/about/zh") || pathname.startsWith("/zh/")) {
+    return "zh-CN";
+  }
+  return "en";
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "/";
+  const lang = langForPath(pathname);
+
   const cssVars = {
     "--color-bg": theme.colors.bg,
     "--color-bg-elevated": theme.colors.bgElevated,
@@ -196,7 +230,7 @@ export default function RootLayout({
   } as React.CSSProperties;
 
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body style={cssVars}>
         <script
           type="application/ld+json"
