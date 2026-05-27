@@ -83,7 +83,11 @@ const organizationSchema = {
     "Enterprise GEO System Architecture and AI Visibility Solutions. We build AI-native information architectures that make AI search engines understand, trust, and recommend your brand.",
   slogan:
     "We do not optimize content for AI. We design structured information systems.",
-  inLanguage: ["en", "zh-CN"],
+  // `knowsLanguage` is the correct Organization-level property for languages
+  // the entity operates in. `inLanguage` (used by an earlier spec draft) is
+  // only valid on CreativeWork/Event/etc., not Organization — schema.org
+  // validator rightly flags it as invalid.
+  knowsLanguage: ["en", "zh-CN"],
   knowsAbout: [
     "Generative Engine Optimization",
     "AI Visibility",
@@ -97,24 +101,14 @@ const organizationSchema = {
     "Cross-Market Brand Communication",
     "Data Modeling",
   ],
-  // Bilingual descriptions — both languages in one schema. AI agents pick
-  // the appropriate one based on page context. Non-standard property but
-  // harmless (parsers ignore unknown fields) and aligns with the teammate's
-  // bilingual entity-signaling intent.
-  descriptionInLanguage: [
-    {
-      "@type": "LanguageString",
-      inLanguage: "en",
-      description:
-        "CAMUS specializes in Enterprise GEO System Architecture and AI Visibility solutions, helping brands build structured information systems for AI search engines. Based in Singapore, serving Asia-Pacific and global markets.",
-    },
-    {
-      "@type": "LanguageString",
-      inLanguage: "zh",
-      description:
-        "CAMUS专注于GEO（生成式引擎优化）系统架构，为企业品牌设计面向AI搜索引擎的结构化信息系统。团队核心成员来自企业级软件架构背景，总部位于新加坡，服务亚太及全球市场。",
-    },
-  ],
+  // Note: `descriptionInLanguage` and `LanguageString` from the teammate's
+  // spec are not valid schema.org constructs — Schema.org Validator flags
+  // them as errors. Bilingual entity signaling is already handled by:
+  //   • the same `@id` rendered on both /about and /about/zh pages
+  //   • bidirectional hreflang link tags on each page
+  //   • `<html lang="zh-CN">` on /about/zh via middleware
+  //   • `knowsLanguage` above declaring CAMUS operates in en + zh-CN
+  // No additional language-tagged descriptions needed.
   address: {
     "@type": "PostalAddress",
     addressCountry: "SG",
