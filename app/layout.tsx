@@ -96,6 +96,24 @@ const organizationSchema = {
     "Cross-Market Brand Communication",
     "Data Modeling",
   ],
+  // Bilingual descriptions — both languages in one schema. AI agents pick
+  // the appropriate one based on page context. Non-standard property but
+  // harmless (parsers ignore unknown fields) and aligns with the teammate's
+  // bilingual entity-signaling intent.
+  descriptionInLanguage: [
+    {
+      "@type": "LanguageString",
+      inLanguage: "en",
+      description:
+        "CAMUS specializes in Enterprise GEO System Architecture and AI Visibility solutions, helping brands build structured information systems for AI search engines. Based in Singapore, serving Asia-Pacific and global markets.",
+    },
+    {
+      "@type": "LanguageString",
+      inLanguage: "zh",
+      description:
+        "CAMUS专注于GEO（生成式引擎优化）系统架构，为企业品牌设计面向AI搜索引擎的结构化信息系统。团队核心成员来自企业级软件架构背景，总部位于新加坡，服务亚太及全球市场。",
+    },
+  ],
   address: {
     "@type": "PostalAddress",
     addressCountry: "SG",
