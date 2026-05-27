@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { theme } from "@/config/theme";
@@ -186,11 +187,26 @@ const organizationSchema = {
   },
 };
 
-export default function RootLayout({
+// Map a route prefix to the appropriate HTML lang attribute.
+// AI crawlers + screen readers + browser i18n APIs all rely on <html lang>.
+// Currently /about/zh is the only Chinese route — extend this map as more
+// Chinese pages are added.
+function langForPath(pathname: string): "en" | "zh-CN" {
+  if (pathname.startsWith("/about/zh") || pathname.startsWith("/zh/")) {
+    return "zh-CN";
+  }
+  return "en";
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "/";
+  const lang = langForPath(pathname);
+
   const cssVars = {
     "--color-bg": theme.colors.bg,
     "--color-bg-elevated": theme.colors.bgElevated,
@@ -214,7 +230,7 @@ export default function RootLayout({
   } as React.CSSProperties;
 
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body style={cssVars}>
         <script
           type="application/ld+json"

@@ -547,7 +547,7 @@ export default function AboutZhContent() {
             申请 AI 可见性诊断 →
           </Button>
           <Button href="/insights" variant="ghost" size="lg">
-            阅读我们的洞察
+            阅读 GEO 洞察
           </Button>
         </motion.div>
       </div>

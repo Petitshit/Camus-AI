@@ -430,7 +430,7 @@ export default function AboutPage() {
             Request an AI Visibility Audit →
           </Button>
           <Button href="/insights" variant="ghost" size="lg">
-            Read Our Insights
+            Read Our GEO Insights
           </Button>
         </motion.div>
       </div>
