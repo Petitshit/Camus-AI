@@ -195,8 +195,13 @@ export default function AboutZhContent() {
               maxWidth: "62ch",
             }}
           >
-            AI 搜索引擎（如 ChatGPT、Perplexity、Kimi、文心一言、豆包）不再依赖关键词匹配，而是通过理解品牌的实体身份、专业背书、结构化信息来决定是否推荐你。
-            GEO 不是内容营销，是<strong style={{ color: "var(--color-text)" }}>信息架构工程</strong>——我们为企业构建 AI 原生环境所需的数据结构与信任信号体系。
+            AI 搜索引擎（如 ChatGPT、Perplexity、Kimi、文心一言、豆包）不再依赖关键词匹配，而是通过理解品牌的实体身份、专业背书、结构化信息来决定是否推荐你。{" "}
+            <span itemScope itemType="https://schema.org/DefinedTerm">
+              <span itemProp="name">GEO（Generative Engine Optimization，生成式引擎优化）</span>
+              <meta itemProp="inDefinedTermSet" content="CAMUS GEO Terminology" />
+              <meta itemProp="description" content="面向 AI 搜索引擎的企业级信息架构设计与优化方法论。" />
+            </span>{" "}
+            不是内容营销，是<strong style={{ color: "var(--color-text)" }}>信息架构工程</strong>——我们为企业构建 AI 原生环境所需的数据结构与信任信号体系。
           </p>
         </motion.div>
 
@@ -327,7 +332,13 @@ export default function AboutZhContent() {
                 maxWidth: "62ch",
               }}
             >
-              我们不从「营销技巧」切入 GEO，而是从信息架构（Information Architecture）和数据建模的技术视角，为企业构建 AI 可见性的基础设施。
+              我们不从「营销技巧」切入 GEO，而是从{" "}
+              <span itemScope itemType="https://schema.org/DefinedTerm">
+                <span itemProp="name">信息架构（Information Architecture）</span>
+                <meta itemProp="inDefinedTermSet" content="CAMUS GEO Terminology" />
+                <meta itemProp="description" content="设计信息组织、结构、标签与导航系统的技术学科。" />
+              </span>{" "}
+              和数据建模的技术视角，为企业构建 AI 可见性的基础设施。
             </p>
 
             {/* Credentials footer */}
