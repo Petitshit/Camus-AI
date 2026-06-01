@@ -66,6 +66,29 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  // Webmaster verification tokens — set the corresponding env var in Vercel
+  // to activate each one. Each platform's verification page gives you the
+  // token; paste it as the env var value and redeploy.
+  //   Baidu  → https://ziyuan.baidu.com  → set NEXT_PUBLIC_BAIDU_SITE_VERIFICATION
+  //   Bing   → https://www.bing.com/webmasters → set NEXT_PUBLIC_BING_SITE_VERIFICATION
+  //   Sogou  → https://zhanzhang.sogou.com → set NEXT_PUBLIC_SOGOU_SITE_VERIFICATION
+  //   Yandex → https://webmaster.yandex.com → set NEXT_PUBLIC_YANDEX_VERIFICATION
+  verification: {
+    other: {
+      ...(process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION
+        ? { "baidu-site-verification": process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION }
+        : {}),
+      ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+        : {}),
+      ...(process.env.NEXT_PUBLIC_SOGOU_SITE_VERIFICATION
+        ? { sogou_site_verification: process.env.NEXT_PUBLIC_SOGOU_SITE_VERIFICATION }
+        : {}),
+    },
+    ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
+      ? { yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION }
+      : {}),
+  },
 };
 
 // ── Site-wide Organization schema (JSON-LD) ──
