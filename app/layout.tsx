@@ -75,9 +75,12 @@ export const metadata: Metadata = {
   //   Yandex → https://webmaster.yandex.com → set NEXT_PUBLIC_YANDEX_VERIFICATION
   verification: {
     other: {
-      ...(process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION
-        ? { "baidu-site-verification": process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION }
-        : {}),
+      // Baidu — file verification (public/baidu_verify_codeva-mORdTXNURG.html)
+      // didn't work for Baidu, so we use the meta-tag method. The token is
+      // PUBLIC (it ships on every page in a meta tag anyway), so hardcoding
+      // is safe. Env var still takes precedence if set in Vercel.
+      "baidu-site-verification":
+        process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION ?? "codeva-mORdTXNURG",
       ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
         ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
         : {}),
