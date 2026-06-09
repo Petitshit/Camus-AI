@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
@@ -65,95 +64,89 @@ export default function InsightsPage() {
 
         {/* Article list */}
         <div className="flex flex-col gap-5">
-          {insights.map((article, i) => (
-            <motion.div
-              key={article.slug}
-              custom={i + 1}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(38,17,15,0.07)" }}
-              className="rounded-lg"
-              style={{
-                backgroundColor: "var(--color-bg-card)",
-                border: "1px solid var(--color-border-light)",
-              }}
-            >
-              <Link
-                href={`/insights/${article.slug}`}
-                className="block p-7 md:p-9"
-                style={{ textDecoration: "none", color: "inherit" }}
+          {insights.map((article, i) => {
+            const primaryHref = article.languages?.[0]?.href ?? `/insights/${article.slug}`;
+            return (
+              <motion.div
+                key={article.slug}
+                custom={i + 1}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(38,17,15,0.07)" }}
+                className="rounded-lg p-7 md:p-9"
+                style={{
+                  backgroundColor: "var(--color-bg-card)",
+                  border: "1px solid var(--color-border-light)",
+                }}
               >
-                {/* Meta row */}
+                {/* Meta row — date · version */}
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span
                     className="text-xs tracking-widest uppercase"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      color: "var(--color-text-muted)",
-                    }}
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}
                   >
                     {article.publishedDate}
                   </span>
-                  <span
-                    style={{
-                      width: 4,
-                      height: 4,
-                      borderRadius: "50%",
-                      backgroundColor: "var(--color-text-muted)",
-                      opacity: 0.5,
-                    }}
-                  />
+                  <span style={{ width: 4, height: 4, borderRadius: "50%", backgroundColor: "var(--color-text-muted)", opacity: 0.5 }} />
                   <span
                     className="text-xs tracking-widest uppercase"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      color: "var(--color-text-muted)",
-                    }}
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-text-muted)" }}
                   >
                     Version {article.version}
                   </span>
                 </div>
 
-                {/* Title */}
-                <h2
-                  className="font-serif font-light leading-snug mb-4"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "clamp(1.4rem, 2.6vw, 1.95rem)",
-                    color: "var(--color-text)",
-                  }}
-                >
-                  {article.title}
-                </h2>
+                {/* Title — links to primary (English) version */}
+                <Link href={primaryHref} style={{ textDecoration: "none" }}>
+                  <h2
+                    className="font-serif font-light leading-snug mb-4 transition-opacity duration-150 hover:opacity-70"
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "clamp(1.4rem, 2.6vw, 1.95rem)",
+                      color: "var(--color-text)",
+                    }}
+                  >
+                    {article.title}
+                  </h2>
+                </Link>
 
                 {/* Excerpt */}
                 <p
                   className="text-sm md:text-base leading-relaxed mb-5"
-                  style={{
-                    color: "rgba(38,17,15,0.72)",
-                    fontFamily: "var(--font-sans)",
-                    maxWidth: "62ch",
-                  }}
+                  style={{ color: "rgba(38,17,15,0.72)", fontFamily: "var(--font-sans)", maxWidth: "62ch" }}
                 >
                   {article.excerpt}
                 </p>
 
-                {/* CTA */}
-                <span
-                  className="inline-flex items-center gap-2 text-sm"
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    color: "var(--color-accent)",
-                    fontWeight: 600,
-                  }}
-                >
-                  Read article
-                  <ArrowRight size={15} strokeWidth={2} />
-                </span>
-              </Link>
-            </motion.div>
-          ))}
+                {/* One outlined-pill CTA per available language — self-labeling.
+                    The Arabic button's own script signals the language. */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  {(article.languages ?? [
+                    { code: "en", label: "EN", cta: "Read article", href: primaryHref, hrefLang: "en" },
+                  ]).map((lng) => (
+                    <Link
+                      key={lng.code}
+                      href={lng.href}
+                      hrefLang={lng.hrefLang}
+                      dir={lng.dir ?? "ltr"}
+                      className="lang-pill inline-flex items-center rounded-full px-5 py-2 text-sm"
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontWeight: 600,
+                        color: "var(--color-accent)",
+                        border: "1.5px solid var(--color-accent)",
+                        backgroundColor: "transparent",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {lng.cta}
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
