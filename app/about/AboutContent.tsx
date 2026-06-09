@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
-import LanguageToggle from "@/components/LanguageToggle";
+import LanguageToggle, { ABOUT_LANG_OPTIONS } from "@/components/LanguageToggle";
 import { faqs } from "@/data/faqs";
 
 // ── About-page FAQPage schema ──
@@ -138,7 +138,7 @@ export default function AboutPage() {
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="mb-20">
           <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
             <SectionLabel>AI Trust &amp; Conversion Solutions</SectionLabel>
-            <LanguageToggle current="en" enHref="/about" zhHref="/about/zh" />
+            <LanguageToggle current="en" options={ABOUT_LANG_OPTIONS} />
           </div>
           <h1
             className="font-serif font-light leading-tight mb-6"

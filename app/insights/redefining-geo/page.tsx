@@ -12,12 +12,19 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: {
     canonical: URL,
+    languages: {
+      en: URL,
+      ar: "https://www.camus.one/insights/redefining-geo/ar",
+      "x-default": URL,
+    },
   },
   openGraph: {
     type: "article",
     url: URL,
     title: TITLE,
     description: DESCRIPTION,
+    locale: "en_US",
+    alternateLocale: ["ar_SA"],
     publishedTime: "2026-05-18T00:00:00.000Z",
     modifiedTime: "2026-05-19T00:00:00.000Z",
     authors: ["CAMUS"],

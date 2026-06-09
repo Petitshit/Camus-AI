@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     languages: {
       en: URL,
       "zh-CN": "https://www.camus.one/about/zh",
+      ar: "https://www.camus.one/about/ar",
       "x-default": URL,
     },
   },
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: OG_DESCRIPTION,
     locale: "en_US",
-    alternateLocale: ["zh_CN"],
+    alternateLocale: ["zh_CN", "ar_SA"],
   },
   twitter: {
     card: "summary_large_image",

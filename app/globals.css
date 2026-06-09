@@ -89,9 +89,26 @@
   --color-green-glow: rgba(128, 191, 132, 0.10);
   --color-brown: #734432;
   --color-dark: #26110F;
-  --font-serif: "Season Serif", Georgia, serif;
-  --font-sans: "Geist", system-ui, sans-serif;
-  --font-mono: "Geist Mono", monospace;
+  --font-serif: "Season Serif", "Noto Naskh Arabic", "Geeza Pro", Georgia, serif;
+  --font-sans: "Geist", "Noto Sans Arabic", "Geeza Pro", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Noto Sans Mono", "Noto Sans Arabic", monospace;
+}
+
+/* ── RTL helpers ── */
+/* Arabic pages set <html dir="rtl">. Most layout uses flex/grid which mirror
+   automatically, but a few logical fixes help readability. */
+[dir="rtl"] {
+  text-align: right;
+}
+[dir="rtl"] .ltr-content {
+  direction: ltr;
+  text-align: left;
+}
+/* Keep code/terminal-style and Latin-only tokens left-to-right inside RTL */
+[dir="rtl"] code,
+[dir="rtl"] .force-ltr {
+  direction: ltr;
+  unicode-bidi: embed;
 }
 
 /* ── Base ── */

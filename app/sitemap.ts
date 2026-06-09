@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${SITE_URL}/about`,
           "zh-CN": `${SITE_URL}/about/zh`,
+          ar: `${SITE_URL}/about/ar`,
         },
       },
     },
@@ -36,6 +37,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${SITE_URL}/about`,
           "zh-CN": `${SITE_URL}/about/zh`,
+          ar: `${SITE_URL}/about/ar`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/about/ar`,
+      lastModified: "2026-06-08",
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/about`,
+          "zh-CN": `${SITE_URL}/about/zh`,
+          ar: `${SITE_URL}/about/ar`,
         },
       },
     },
@@ -66,5 +81,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...insightRoutes];
+  // Arabic translations of insights articles (currently just redefining-geo).
+  const insightArRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/insights/redefining-geo/ar`,
+      lastModified: "2026-06-08",
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/insights/redefining-geo`,
+          ar: `${SITE_URL}/insights/redefining-geo/ar`,
+        },
+      },
+    },
+  ];
+
+  return [...staticRoutes, ...insightRoutes, ...insightArRoutes];
 }
