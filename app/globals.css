@@ -134,6 +134,14 @@ body {
 .font-sans  { font-family: var(--font-sans); }
 .font-mono  { font-family: var(--font-mono); }
 
+/* ── Language pill buttons (Insights cards) ── */
+.lang-pill {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.lang-pill:hover {
+  background-color: var(--color-accent-glow);
+}
+
 /* ── Animations ── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
