@@ -81,7 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Arabic translations of insights articles (currently just redefining-geo).
+  // Arabic translations of insights articles.
   const insightArRoutes: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/insights/redefining-geo/ar`,
@@ -92,6 +92,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${SITE_URL}/insights/redefining-geo`,
           ar: `${SITE_URL}/insights/redefining-geo/ar`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/insights/geo-for-mena-brands/ar`,
+      lastModified: "2026-06-09",
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/insights/geo-for-mena-brands`,
+          ar: `${SITE_URL}/insights/geo-for-mena-brands/ar`,
         },
       },
     },
