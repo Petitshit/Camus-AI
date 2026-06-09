@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import DiagnosisModal from "@/components/DiagnosisModal";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
-import LanguageToggle from "@/components/LanguageToggle";
+import LanguageToggle, { ABOUT_LANG_OPTIONS } from "@/components/LanguageToggle";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -117,7 +117,7 @@ export default function AboutZhContent() {
         >
           <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
             <SectionLabel>AI 信任与转化解决方案</SectionLabel>
-            <LanguageToggle current="zh" enHref="/about" zhHref="/about/zh" />
+            <LanguageToggle current="zh" options={ABOUT_LANG_OPTIONS} />
           </div>
 
           <h1

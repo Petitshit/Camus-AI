@@ -2,21 +2,23 @@
 
 import Link from "next/link";
 
+export type LangOption = {
+  code: string; // "en" | "zh" | "ar"
+  label: string; // "EN" | "中文" | "العربية"
+  href: string;
+  hrefLang: string; // BCP-47: "en" | "zh-CN" | "ar"
+};
+
 interface LanguageToggleProps {
-  current: "en" | "zh";
-  enHref: string;
-  zhHref: string;
+  current: string; // matches a LangOption.code
+  options: LangOption[];
 }
 
-// Two-segment pill: [ EN ][ 中文 ] — active segment is filled in brown,
-// inactive is outlined. Used to switch between English and Chinese versions
-// of bilingual pages. Add this only to pages that actually have a Chinese
-// sibling — otherwise it implies content that doesn't exist.
-export default function LanguageToggle({
-  current,
-  enHref,
-  zhHref,
-}: LanguageToggleProps) {
+// Segmented pill: [ EN ][ 中文 ][ العربية ] — active segment filled brown,
+// inactive outlined. Add this only to pages that have sibling translations,
+// otherwise it implies content that doesn't exist. Each <a> carries hrefLang
+// so crawlers read the language relationships.
+export default function LanguageToggle({ current, options }: LanguageToggleProps) {
   const base: React.CSSProperties = {
     fontFamily: "var(--font-sans)",
     fontSize: "0.75rem",
@@ -28,6 +30,7 @@ export default function LanguageToggle({
     lineHeight: 1,
     display: "inline-flex",
     alignItems: "center",
+    whiteSpace: "nowrap",
   };
 
   const activeStyle: React.CSSProperties = {
@@ -45,28 +48,32 @@ export default function LanguageToggle({
   return (
     <div
       className="inline-flex rounded-full overflow-hidden"
-      style={{
-        border: "1px solid var(--color-brown)",
-      }}
+      style={{ border: "1px solid var(--color-brown)" }}
       role="group"
       aria-label="Language selector"
+      dir="ltr"
     >
-      <Link
-        href={enHref}
-        style={current === "en" ? activeStyle : inactiveStyle}
-        aria-current={current === "en" ? "page" : undefined}
-        hrefLang="en"
-      >
-        EN
-      </Link>
-      <Link
-        href={zhHref}
-        style={current === "zh" ? activeStyle : inactiveStyle}
-        aria-current={current === "zh" ? "page" : undefined}
-        hrefLang="zh-CN"
-      >
-        中文
-      </Link>
+      {options.map((opt) => {
+        const isActive = opt.code === current;
+        return (
+          <Link
+            key={opt.code}
+            href={opt.href}
+            style={isActive ? activeStyle : inactiveStyle}
+            aria-current={isActive ? "page" : undefined}
+            hrefLang={opt.hrefLang}
+          >
+            {opt.label}
+          </Link>
+        );
+      })}
     </div>
   );
 }
+
+// Shared option set so all three About pages stay in sync.
+export const ABOUT_LANG_OPTIONS: LangOption[] = [
+  { code: "en", label: "EN", href: "/about", hrefLang: "en" },
+  { code: "zh", label: "中文", href: "/about/zh", hrefLang: "zh-CN" },
+  { code: "ar", label: "العربية", href: "/about/ar", hrefLang: "ar" },
+];

@@ -102,7 +102,16 @@ const organizationSchema = {
   "@type": "Organization",
   "@id": "https://www.camus.one/#organization",
   name: "CAMUS",
-  alternateName: ["CAMUS GEO", "CAMUS AI Visibility"],
+  // "كاموس" = Arabic for CAMUS. "تحسين محركات البحث بالذكاء الاصطناعي" is the
+  // expanded Arabic term for GEO — the MENA strategy memo flags that Arabic AI
+  // reads bare "GEO" as جغرافيا (geography), so we register the full descriptor
+  // as an alternate name to disambiguate the entity for Arabic AI engines.
+  alternateName: [
+    "CAMUS GEO",
+    "CAMUS AI Visibility",
+    "كاموس",
+    "تحسين محركات البحث بالذكاء الاصطناعي",
+  ],
   url: "https://www.camus.one",
   logo: "https://www.camus.one/logo.svg",
   description:
@@ -110,10 +119,10 @@ const organizationSchema = {
   slogan:
     "We do not optimize content for AI. We design structured information systems.",
   // `knowsLanguage` is the correct Organization-level property for languages
-  // the entity operates in. `inLanguage` (used by an earlier spec draft) is
+  // the entity operates in. `inLanguage` (used by earlier spec drafts) is
   // only valid on CreativeWork/Event/etc., not Organization — schema.org
   // validator rightly flags it as invalid.
-  knowsLanguage: ["en", "zh-CN"],
+  knowsLanguage: ["en", "zh-CN", "ar"],
   knowsAbout: [
     "Generative Engine Optimization",
     "AI Visibility",
@@ -207,15 +216,24 @@ const organizationSchema = {
   },
 };
 
-// Map a route prefix to the appropriate HTML lang attribute.
-// AI crawlers + screen readers + browser i18n APIs all rely on <html lang>.
-// Currently /about/zh is the only Chinese route — extend this map as more
-// Chinese pages are added.
-function langForPath(pathname: string): "en" | "zh-CN" {
-  if (pathname.startsWith("/about/zh") || pathname.startsWith("/zh/")) {
-    return "zh-CN";
+// Map a route to its <html lang> + text direction. AI crawlers, screen readers,
+// and browser i18n APIs all rely on these. Arabic routes are RTL.
+// Convention: language is a suffix segment (/about/zh, /about/ar,
+// /insights/redefining-geo/ar) — matches the existing /about/zh pattern.
+function localeForPath(pathname: string): { lang: string; dir: "ltr" | "rtl" } {
+  // Arabic: any route ending in /ar or nested under an /ar segment
+  if (
+    pathname === "/ar" ||
+    pathname.endsWith("/ar") ||
+    pathname.includes("/ar/")
+  ) {
+    return { lang: "ar", dir: "rtl" };
   }
-  return "en";
+  // Chinese
+  if (pathname.startsWith("/about/zh") || pathname.startsWith("/zh/")) {
+    return { lang: "zh-CN", dir: "ltr" };
+  }
+  return { lang: "en", dir: "ltr" };
 }
 
 export default async function RootLayout({
@@ -225,7 +243,7 @@ export default async function RootLayout({
 }) {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "/";
-  const lang = langForPath(pathname);
+  const { lang, dir } = localeForPath(pathname);
 
   const cssVars = {
     "--color-bg": theme.colors.bg,
@@ -244,13 +262,17 @@ export default async function RootLayout({
     "--color-green-glow": theme.colors.greenGlow,
     "--color-brown": theme.colors.brown,
     "--color-dark": theme.colors.dark,
-    "--font-serif": `"${theme.fonts.serif}", Georgia, serif`,
-    "--font-sans": `"${theme.fonts.sans}", system-ui, sans-serif`,
-    "--font-mono": `"${theme.fonts.mono}", monospace`,
+    // Arabic glyphs are absent from Geist / Season Serif, so the stacks fall
+    // through (per-glyph) to system Arabic fonts — Geeza Pro (macOS),
+    // Segoe UI (Windows), Noto Sans/Naskh Arabic (Android/Linux). Latin text
+    // still renders in Geist / Season Serif; only Arabic characters fall back.
+    "--font-serif": `"${theme.fonts.serif}", "Noto Naskh Arabic", "Geeza Pro", Georgia, serif`,
+    "--font-sans": `"${theme.fonts.sans}", "Noto Sans Arabic", "Geeza Pro", "Segoe UI", system-ui, sans-serif`,
+    "--font-mono": `"${theme.fonts.mono}", "Noto Sans Mono", "Noto Sans Arabic", monospace`,
   } as React.CSSProperties;
 
   return (
-    <html lang={lang}>
+    <html lang={lang} dir={dir}>
       <body style={cssVars}>
         <script
           type="application/ld+json"
