@@ -21,6 +21,33 @@ export type Insight = {
 
 export const insights: Insight[] = [
   {
+    slug: "geo-for-mena-brands",
+    title:
+      "What Is GEO? And How MENA Brands Build AI-Search Visibility in the Vision-2030 Era",
+    publishedDate: "2026-06-09",
+    version: "1.0",
+    lastUpdated: "2026-06-09",
+    excerpt:
+      "AI search now shapes how Saudi, UAE, and Qatar enterprises are discovered. Why MENA brands need bilingual information architecture — not translated marketing — to be understood, trusted, and recommended by both Arabic and English AI engines.",
+    languages: [
+      {
+        code: "en",
+        label: "EN",
+        cta: "Read article",
+        href: "/insights/geo-for-mena-brands",
+        hrefLang: "en",
+      },
+      {
+        code: "ar",
+        label: "العربية",
+        cta: "اقرأ المقال",
+        href: "/insights/geo-for-mena-brands/ar",
+        hrefLang: "ar",
+        dir: "rtl",
+      },
+    ],
+  },
+  {
     slug: "redefining-geo",
     title:
       "Redefining GEO Through Solution Logic: Why Enterprise AI Visibility Requires Information Architecture",
