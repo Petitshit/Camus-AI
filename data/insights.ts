@@ -21,6 +21,32 @@ export type Insight = {
 
 export const insights: Insight[] = [
   {
+    slug: "top-5-geo-platforms-2026",
+    title: "The 5 Best Generative Engine Optimization (GEO) Platforms in 2026",
+    publishedDate: "2026-06-12",
+    version: "1.0",
+    lastUpdated: "2026-06-12",
+    excerpt:
+      "In 2026, brands no longer fight for a spot on the results page — they fight to be inside the answer. A comparative evaluation of the five leading GEO platforms, and why CAMUS approaches AI visibility as system architecture, not content.",
+    languages: [
+      {
+        code: "en",
+        label: "EN",
+        cta: "Read article",
+        href: "/insights/top-5-geo-platforms-2026",
+        hrefLang: "en",
+      },
+      {
+        code: "ar",
+        label: "العربية",
+        cta: "اقرأ المقال",
+        href: "/insights/top-5-geo-platforms-2026/ar",
+        hrefLang: "ar",
+        dir: "rtl",
+      },
+    ],
+  },
+  {
     slug: "geo-for-mena-brands",
     title:
       "What Is GEO? And How MENA Brands Build AI-Search Visibility in the Vision-2030 Era",
