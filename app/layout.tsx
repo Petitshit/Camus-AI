@@ -159,6 +159,7 @@ const organizationSchema = {
   },
   sameAs: [
     "https://www.linkedin.com/company/camusone",
+    "https://medium.com/@Camus_AI",
     "https://github.com/camus-one",
   ],
   // Note: founder + employee Person schemas intentionally omitted until real

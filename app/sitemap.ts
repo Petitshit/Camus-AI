@@ -107,6 +107,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    {
+      url: `${SITE_URL}/insights/top-5-geo-platforms-2026/ar`,
+      lastModified: "2026-06-12",
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/insights/top-5-geo-platforms-2026`,
+          ar: `${SITE_URL}/insights/top-5-geo-platforms-2026/ar`,
+        },
+      },
+    },
   ];
 
   return [...staticRoutes, ...insightRoutes, ...insightArRoutes];

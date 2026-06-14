@@ -30,6 +30,27 @@ const comparison = [
   },
 ];
 
+// Inline brand SVGs (Lucide dropped brand glyphs; these avoid a 2nd icon lib).
+function MediumIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+    </svg>
+  );
+}
+function LinkedInIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 0 1-2.07-2.06 2.06 2.06 0 1 1 2.07 2.06zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+    </svg>
+  );
+}
+
+const socialLinks = [
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/camusone/", Icon: LinkedInIcon },
+  { name: "Medium", href: "https://medium.com/@Camus_AI", Icon: MediumIcon },
+];
+
 export default function Footer() {
   const [faqOpen, setFaqOpen] = useState(false);
 
@@ -332,20 +353,51 @@ export default function Footer() {
           )}
         </AnimatePresence>
 
-        {/* Bottom bar */}
+        {/* Bottom bar — copyright · social channels · email */}
         <div
-          className="border-t pt-6 flex flex-col sm:flex-row justify-between gap-3"
+          className="border-t pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           style={{ borderColor: "var(--color-border)" }}
         >
           <p
-            className="text-xs"
+            className="text-xs order-1"
             style={{ color: "var(--color-text-muted)", fontFamily: "var(--font-sans)" }}
           >
             © 2026 Camus. All rights reserved.
           </p>
+
+          {/* Social channels */}
+          <div className="flex items-center gap-3 order-3 sm:order-2">
+            {socialLinks.map(({ name, href, Icon }) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={name}
+                className="flex items-center justify-center rounded-full transition-colors duration-200"
+                style={{
+                  width: 34,
+                  height: 34,
+                  border: "1px solid var(--color-border)",
+                  color: "var(--color-text-muted)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--color-accent)";
+                  e.currentTarget.style.borderColor = "var(--color-accent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--color-text-muted)";
+                  e.currentTarget.style.borderColor = "var(--color-border)";
+                }}
+              >
+                <Icon />
+              </a>
+            ))}
+          </div>
+
           <a
             href={`mailto:${theme.company.email}`}
-            className="text-xs transition-opacity hover:opacity-60"
+            className="text-xs transition-opacity hover:opacity-60 order-2 sm:order-3"
             style={{
               color: "var(--color-text-muted)",
               fontFamily: "var(--font-sans)",
